@@ -110,9 +110,11 @@ code, pre, kbd, samp {
    glow behind it reveals the negative silhouette of the characters. */
 .jp-etch {
   color: var(--bg-void);
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans CJK JP",
-               "Noto Sans JP", "General Sans", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 700;
+  /* Gyōshotai — semi-cursive brush script. Strokes flow into each other;
+     the weight is baked into the shape so no faux-bold. */
+  font-family: "Yuji Boku", "Yuji Syuku", "Yuji Mai", "Hiragino Mincho ProN",
+               "Noto Serif CJK JP", cursive, serif;
+  font-weight: 400;
   letter-spacing: 0.18em;
   /* a breath of highlight so the edge reads even where the glow is faint */
   text-shadow: 0 1px 0 rgba(245, 236, 220, 0.04);

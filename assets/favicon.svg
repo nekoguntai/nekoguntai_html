@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="nekoguntai">
-  <rect width="32" height="32" rx="7" fill="#0b0a12"/>
-  <path d="M8 13 L11 6 L14 12 Z" fill="#b7a2ff"/>
-  <path d="M24 13 L21 6 L18 12 Z" fill="#b7a2ff"/>
-  <circle cx="16" cy="19" r="7" fill="#b7a2ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="nekoguntai">
+  <rect width="200" height="200" rx="44" fill="#0b0a12"/>
+  <path d="M 72 62 L 80 30 L 96 55 Z" fill="#b7a2ff"/>
+  <path d="M 128 62 L 120 30 L 104 55 Z" fill="#b7a2ff"/>
+  <polygon points="100,55 112.93,92.2 152.31,93 120.92,116.8 132.33,154.5 100,132 67.67,154.5 79.08,116.8 47.69,93 87.07,92.2" fill="#b7a2ff"/>
 </svg>
