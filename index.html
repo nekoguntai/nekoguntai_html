@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>nekoguntai — an army of cats</title>
+  <title>nekoguntai — army of cats</title>
   <meta name="description" content="nekoguntai — a small workshop of quiet tools and curious experiments." />
   <meta name="theme-color" content="#0b0a12" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="canonical" href="https://nekoguntai.dev/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="nekoguntai" />
-  <meta property="og:title" content="nekoguntai — an army of cats" />
+  <meta property="og:title" content="nekoguntai — army of cats" />
   <meta property="og:description" content="A home for quiet tools and curious experiments." />
   <meta property="og:url" content="https://nekoguntai.dev/" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="nekoguntai — an army of cats" />
+  <meta name="twitter:title" content="nekoguntai — army of cats" />
   <meta name="twitter:description" content="A home for quiet tools and curious experiments." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -103,6 +103,16 @@
       <div class="blob" aria-hidden="true" style="bottom:-8rem; right:-4rem; width:24rem; height:24rem; background:#f4aeb9;"></div>
       <div class="blob" aria-hidden="true" style="bottom:-10rem; left:40%; width:20rem; height:20rem; background:#9ccfb0; opacity:0.22;"></div>
 
+      <!-- Abstract cat silhouette behind the wordmark. Blurred into the glow. -->
+      <div class="cat-blob" aria-hidden="true" style="top:6%; left:50%; transform:translateX(-50%); width:min(92vw, 640px);">
+        <svg viewBox="0 0 480 400" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="110,95 160,15 210,100" />
+          <polygon points="270,100 320,15 370,95" />
+          <ellipse cx="240" cy="160" rx="140" ry="105" />
+          <ellipse cx="240" cy="320" rx="165" ry="100" />
+        </svg>
+      </div>
+
       <div class="relative max-w-5xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-40 text-center">
         <!-- Twinkle layer -->
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -115,12 +125,16 @@
           <span class="twinkle sm" style="top:38%; left:46%;"></span>
         </div>
 
-        <p class="animate-fade-in-up font-mono text-[0.7rem] md:text-xs tracking-[0.32em] uppercase text-neko-inkMuted mb-6">
-          An army of cats
+        <p aria-hidden="true" class="jp-etch animate-fade-in-up text-[1.6875rem] md:text-4xl mb-3 md:mb-4 select-none">
+          猫軍隊
+        </p>
+
+        <p class="animate-fade-in-up-1 font-mono text-[1.05rem] md:text-lg tracking-[0.32em] uppercase text-neko-inkMuted mb-6">
+          Army of cats
         </p>
 
         <h1 id="hero-title"
-            class="animate-fade-in-up-1 relative inline-block font-display font-bold tracking-tight text-5xl sm:text-6xl md:text-7xl">
+            class="animate-fade-in-up-2 relative inline-block font-display font-bold tracking-tight text-5xl sm:text-6xl md:text-7xl">
           <!-- Ear-notches: SVG overlay above the first & last letters. Decorative. -->
           <svg aria-hidden="true" class="absolute -top-3 md:-top-4 left-[3%] w-4 h-4 md:w-5 md:h-5 text-neko-lilac" viewBox="0 0 20 20" fill="currentColor">
             <path d="M2 18 L10 2 L18 18 Z" />
@@ -131,7 +145,7 @@
           <span class="wordmark-fill">nekoguntai</span>
         </h1>
 
-        <p class="animate-fade-in-up-2 mt-6 text-base md:text-lg text-neko-inkMuted max-w-xl mx-auto">
+        <p class="animate-fade-in-up-3 mt-6 text-base md:text-lg text-neko-inkMuted max-w-xl mx-auto">
           A home for quiet tools and curious experiments.
         </p>
       </div>
@@ -139,10 +153,8 @@
 
     <!-- Divider -->
     <div class="section-rule" role="separator" aria-label="Projects">
-      <span class="diamond sm" aria-hidden="true"></span>
+      <span class="num" aria-hidden="true">01</span>
       <span class="label">Projects</span>
-      <span class="diamond" aria-hidden="true"></span>
-      <span class="diamond sm" aria-hidden="true"></span>
     </div>
 
     <!-- Projects -->
@@ -165,7 +177,10 @@
               <span class="pill text-neko-matcha">Live</span>
               <span class="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-neko-inkDim">01</span>
             </header>
-            <h3 class="font-display font-semibold text-2xl text-neko-ink mb-2 tracking-tight">Sanctuary</h3>
+            <h3 class="font-display font-semibold text-2xl text-neko-ink mb-2 tracking-tight flex items-center gap-2.5">
+              <img src="/sanctuary/assets/logo-dark.svg" alt="" width="24" height="24" class="w-6 h-6 flex-shrink-0" />
+              Sanctuary
+            </h3>
             <p class="text-neko-inkMuted text-sm leading-relaxed mb-6">
               A self-hosted, hardware-wallet-first Bitcoin wallet coordinator. Your keys, your server.
             </p>
@@ -207,7 +222,7 @@
     </section>
 
     <!-- About strip -->
-    <section aria-labelledby="about-title" class="relative max-w-3xl mx-auto px-6 pb-24 text-center">
+    <section aria-labelledby="about-title" class="relative max-w-3xl mx-auto px-6 pb-10 text-center">
       <h2 id="about-title" class="sr-only">About</h2>
       <p class="text-sm md:text-base text-neko-inkMuted leading-relaxed">
         <span class="text-neko-ink">nekoguntai</span>
@@ -216,10 +231,17 @@
       </p>
     </section>
 
+    <!-- Cat-adjective mantra — sits just above the footer border -->
+    <div class="relative max-w-3xl mx-auto px-6 pb-12 text-center" aria-hidden="true">
+      <p class="font-display text-xs tracking-[0.22em] text-neko-ink">
+        curious&nbsp;·&nbsp;patient&nbsp;·&nbsp;quiet&nbsp;·&nbsp;careful&nbsp;·&nbsp;watchful
+      </p>
+    </div>
+
   </main>
 
   <footer class="relative border-t border-neko-border">
-    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="max-w-6xl mx-auto px-6 py-6">
       <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim flex items-center gap-2">
         <span>© 2026 nekoguntai</span>
         <svg class="paw text-neko-lilac" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
@@ -230,9 +252,6 @@
           <path d="M3.5 11 C3.5 8.5 5.5 7 8 7 C10.5 7 12.5 8.5 12.5 11 C12.5 13 10.8 14 8 14 C5.2 14 3.5 13 3.5 11 Z"/>
         </svg>
         <a href="https://github.com/nekoguntai" rel="noopener" class="hover:text-neko-lilac transition-colors">github.com/nekoguntai</a>
-      </p>
-      <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim">
-        <a href="/sanctuary/" class="hover:text-neko-lilac transition-colors">/sanctuary</a>
       </p>
     </div>
   </footer>
