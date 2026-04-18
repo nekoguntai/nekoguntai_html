@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not found — Sanctuary</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0f0f10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap" rel="stylesheet" />
+  <!-- 404 is served by GitHub Pages at any depth under the site root, so this page is
+       intentionally self-contained — no relative asset references that could break. -->
+  <script>(function(){try{var s=localStorage.getItem('sanctuary-theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(_){}})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {
+      colors: {
+        sanctuary: { 50:'#fafafa',100:'#f4f4f5',200:'#e4e4e7',700:'#3f3f46',800:'#27272a',900:'#18181b',950:'#09090b' },
+      },
+      fontFamily: { sans:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], display:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], mono:['ui-monospace','SFMono-Regular','Menlo','monospace'] },
+    } } };
+  </script>
+</head>
+<body class="bg-sanctuary-50 text-sanctuary-900 dark:bg-sanctuary-950 dark:text-sanctuary-100 antialiased min-h-screen flex flex-col" style="font-family:'General Sans','Inter',ui-sans-serif,system-ui,sans-serif">
+  <main class="flex-1 flex items-center justify-center px-4 py-16">
+    <div class="text-center max-w-lg">
+      <svg viewBox="0 0 80 80" class="w-12 h-12 mx-auto" aria-hidden="true" fill="none" stroke="#d4b483" stroke-width="1.5" stroke-linejoin="round">
+        <path d="M40 12 L68 28 L68 52 L40 68 L12 52 L12 28 Z" />
+        <path d="M40 12 L40 40 L68 28" />
+        <path d="M40 40 L12 28 M40 40 L40 68" />
+        <circle cx="40" cy="40" r="3" fill="#d4b483" />
+      </svg>
+      <p class="mt-6 font-mono text-6xl sm:text-7xl font-semibold text-[#d4b483]">404</p>
+      <h1 class="mt-4 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Page not found</h1>
+      <p class="mt-4 text-sanctuary-700 dark:text-sanctuary-200">This page has moved, been renamed, or never existed. The rest of the site is still here.</p>
+      <a href="/sanctuary/" class="mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-sanctuary-900 text-sanctuary-50 dark:bg-sanctuary-100 dark:text-sanctuary-900 hover:opacity-90 font-medium text-sm transition-opacity">
+        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back to Sanctuary home
+      </a>
+    </div>
+  </main>
+  <footer class="border-t border-sanctuary-200 dark:border-sanctuary-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-sanctuary-700 dark:text-sanctuary-200 text-center">Sanctuary · MIT licensed</div>
+  </footer>
+</body>
+</html>

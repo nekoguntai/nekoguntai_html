@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="no-fouc">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Sanctuary</title>
+  <meta name="description" content="Sanctuary's full feature set: multisig, PSBT, RBF, hardware wallet support, role-based access, Tor, air-gapped signing, 2FA, notifications, and backups." />
+  <meta name="theme-color" content="#0f0f10" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="canonical" href="https://nekoguntai.dev/sanctuary/features.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sanctuary" />
+  <meta property="og:title" content="Features — Sanctuary" />
+  <meta property="og:description" content="Multisig, PSBT, RBF, hardware-wallet support, role-based access, Tor, air-gapped signing, 2FA, notifications, and backups — in depth." />
+  <meta property="og:url" content="https://nekoguntai.dev/sanctuary/features.html" />
+  <meta property="og:image" content="https://nekoguntai.dev/sanctuary/assets/screenshots/dashboard.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Features — Sanctuary" />
+  <meta name="twitter:description" content="Multisig, PSBT, RBF, hardware-wallet support, role-based access, Tor, air-gapped signing, 2FA, notifications, and backups." />
+  <meta name="twitter:image" content="https://nekoguntai.dev/sanctuary/assets/screenshots/dashboard.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script>(function(){try{var s=localStorage.getItem('sanctuary-theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(_){}})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {
+      colors: {
+        sanctuary: { 50:'#fafafa',100:'#f4f4f5',200:'#e4e4e7',300:'#d4d4d8',400:'#a1a1aa',500:'#71717a',600:'#52525b',700:'#3f3f46',800:'#27272a',900:'#18181b',950:'#09090b' },
+        primary: { 50:'var(--color-primary-50)',100:'var(--color-primary-100)',200:'var(--color-primary-200)',300:'var(--color-primary-300)',400:'var(--color-primary-400)',500:'var(--color-primary-500)',600:'var(--color-primary-600)',700:'var(--color-primary-700)',800:'var(--color-primary-800)',900:'var(--color-primary-900)',950:'var(--color-primary-950)' },
+        warning: { 50:'var(--color-warning-50)',100:'var(--color-warning-100)',200:'var(--color-warning-200)',500:'var(--color-warning-500)',600:'var(--color-warning-600)',700:'var(--color-warning-700)',800:'var(--color-warning-800)',900:'var(--color-warning-900)',950:'var(--color-warning-950)' },
+        success: { 50:'var(--color-success-50)',100:'var(--color-success-100)',200:'var(--color-success-200)',500:'var(--color-success-500)',600:'var(--color-success-600)',700:'var(--color-success-700)',800:'var(--color-success-800)',900:'var(--color-success-900)',950:'var(--color-success-950)' },
+        zen: { matcha:'#84a98c', gold:'#d4b483', indigo:'#2e4a7d', vermilion:'#e05a47', sakura:'#fcd9d9' },
+      },
+      fontFamily: { sans:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], display:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], mono:['JetBrains Mono','ui-monospace','SFMono-Regular','monospace'] },
+    } } };
+  </script>
+  <style>
+    :root{--color-primary-50:#fdfbf7;--color-primary-100:#f5f2eb;--color-primary-200:#e6e0d4;--color-primary-300:#d4cbb8;--color-primary-400:#a39e93;--color-primary-500:#7d7870;--color-primary-600:#5c5852;--color-primary-700:#45423e;--color-primary-800:#2e2c2a;--color-primary-900:#1c1c1e;--color-primary-950:#0f0f10;--color-success-50:#f4f8f5;--color-success-100:#e2ede5;--color-success-200:#c5dccb;--color-success-500:#628b6b;--color-success-600:#4a6e53;--color-success-700:#3d5944;--color-success-800:#334839;--color-success-900:#2b3b30;--color-success-950:#17211b;--color-warning-50:#fcf9f4;--color-warning-100:#f8f1e1;--color-warning-200:#efe0c0;--color-warning-500:#b59056;--color-warning-600:#96723e;--color-warning-700:#795932;--color-warning-800:#644a2d;--color-warning-900:#533e28;--color-warning-950:#2d2114;}
+    .dark{--color-primary-50:#1a1917;--color-primary-100:#2b261f;--color-primary-200:#453d30;--color-primary-300:#6b5d46;--color-primary-400:#968362;--color-primary-500:#bfa57a;--color-primary-600:#d4b483;--color-primary-700:#e6dcc8;--color-primary-800:#f2efe9;--color-primary-900:#fdfbf7;--color-primary-950:#ffffff;--color-success-50:#17211b;--color-success-100:#2b3b30;--color-success-200:#334839;--color-success-500:#628b6b;--color-success-600:#84a98c;--color-success-700:#9fc4a9;--color-success-800:#c5dccb;--color-success-900:#e2ede5;--color-success-950:#f4f8f5;--color-warning-50:#2d2114;--color-warning-100:#533e28;--color-warning-200:#644a2d;--color-warning-500:#b59056;--color-warning-600:#d4b483;--color-warning-700:#e3ca98;--color-warning-800:#efe0c0;--color-warning-900:#f8f1e1;--color-warning-950:#fcf9f4;}
+  </style>
+</head>
+<body class="bg-sanctuary-50 text-sanctuary-900 dark:bg-sanctuary-950 dark:text-sanctuary-100 antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="sticky top-0 z-40 bg-sanctuary-50/85 dark:bg-sanctuary-950/85 backdrop-blur-md border-b border-sanctuary-200 dark:border-sanctuary-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5"><img src="assets/logo.svg" alt="" class="w-8 h-8" width="32" height="32" /><span class="font-display font-semibold text-lg tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Sanctuary</span></a>
+      <nav aria-label="Primary" class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <a href="features.html" aria-current="page" class="px-3 py-2 rounded-md bg-sanctuary-100 dark:bg-sanctuary-800 text-sanctuary-900 dark:text-sanctuary-50">Features</a>
+        <a href="security.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Security</a>
+        <a href="install.html"  class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Install</a>
+        <a href="faq.html"      class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">FAQ</a>
+        <a href="about.html"    class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">About</a>
+      </nav>
+      <div class="flex items-center gap-1">
+        <a href="https://github.com/nekoguntai/sanctuary" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.3-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.77 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.6.23 2.77.11 3.07.74.8 1.19 1.83 1.19 3.08 0 4.41-2.68 5.38-5.24 5.67.41.35.78 1.05.78 2.13v3.15c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg><span>GitHub</span></a>
+        <button type="button" data-theme-toggle aria-pressed="false" aria-label="Toggle dark mode" class="inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg data-icon="sun" viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg data-icon="moon" viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button type="button" data-mobile-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </div>
+    </div>
+    <div id="mobile-nav" data-mobile-nav class="mobile-nav md:hidden border-t border-sanctuary-200 dark:border-sanctuary-800"><div class="px-4 py-3 flex flex-col gap-1 text-sm font-medium"><a href="features.html" class="px-3 py-2 rounded-md bg-sanctuary-100 dark:bg-sanctuary-800">Features</a><a href="security.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Security</a><a href="install.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Install</a><a href="faq.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">FAQ</a><a href="about.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">About</a><a href="https://github.com/nekoguntai/sanctuary" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">GitHub ↗</a></div></div>
+  </header>
+
+  <main id="main">
+    <!-- Page intro -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-10">
+      <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">Features</p>
+      <h1 class="mt-2 font-display font-semibold text-4xl sm:text-5xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">What Sanctuary does.</h1>
+      <p class="mt-4 text-lg text-sanctuary-600 dark:text-sanctuary-300">A coordinator for Bitcoin wallets that never touches your private keys. Everything below is built around that constraint — from device connectivity to notifications to sharing.</p>
+    </section>
+
+    <!-- Jump nav -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <nav aria-label="On this page" class="flex flex-wrap gap-2 text-xs font-mono">
+        <a href="#multisig"      class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">multisig</a>
+        <a href="#psbt"          class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">PSBT</a>
+        <a href="#rbf-cpfp"      class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">RBF &amp; CPFP</a>
+        <a href="#roles"         class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">roles</a>
+        <a href="#airgap"        class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">air-gap</a>
+        <a href="#tor"           class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">Tor / private node</a>
+        <a href="#2fa"           class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">2FA &amp; audit</a>
+        <a href="#notifications" class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">notifications</a>
+        <a href="#backup"        class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">backup</a>
+        <a href="#hardware"      class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">hardware support</a>
+      </nav>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond sm"></span>
+      <span class="diamond"></span>
+      <span class="diamond sm"></span>
+    </div>
+
+    <!-- Sections -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-16">
+
+      <section id="multisig" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Single-sig &amp; multisig</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Sanctuary coordinates both single-signature and multi-signature wallets. Import an output descriptor, connect devices directly, or scan xpub QR codes — then build and sign transactions across every co-signer from the same interface.</p>
+        <ul class="mt-4 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Output-descriptor import (e.g. <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">wpkh([fingerprint/84'/0'/0']xpub.../0/*)</code>)</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> JSON import from Sparrow, Specter, and other compatible wallets</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multi-wallet, multi-network (mainnet, testnet, signet) with per-network Electrum connections</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Real-time sync via Electrum subscriptions — balances and new transactions appear without refresh</li>
+        </ul>
+      </section>
+
+      <section id="psbt" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">PSBT workflow</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Every transaction Sanctuary builds is a Partially Signed Bitcoin Transaction — the BIP-174 standard format hardware wallets and co-signers speak natively. PSBTs are portable: you can sign one on a device physically disconnected from the internet, then import the signed result back via file or QR code.</p>
+        <ul class="mt-4 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Fee-rate control via an interactive mempool visualizer (click a block to adopt that fee rate)</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Sub-sat/vB precision — fee rates support decimals as low as 0.1 sat/vB</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> UTXO selection for privacy-conscious coin control</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Transaction drafts — save unsigned PSBTs, lock selected UTXOs, and coordinate shared signing flows</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Verify every output on your hardware wallet before broadcasting</li>
+        </ul>
+      </section>
+
+      <section id="rbf-cpfp" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">RBF &amp; CPFP</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">If a transaction stalls in the mempool, you don't need to wait. Replace-By-Fee creates a replacement with a higher fee; Child-Pays-For-Parent attaches a high-fee child that pulls the parent through.</p>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900">
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">RBF (Replace-By-Fee)</h3>
+            <ul class="mt-2 space-y-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">
+              <li>› Requires RBF-flagged sender (sequence &lt; 0xfffffffe)</li>
+              <li>› New rate must exceed current by ≥1 sat/vB</li>
+              <li>› Only the replacement confirms — the original is dropped</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-lg border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900">
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">CPFP</h3>
+            <ul class="mt-2 space-y-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">
+              <li>› Works on received transactions you can't replace</li>
+              <li>› Spends the unconfirmed output at a high fee</li>
+              <li>› Miners include both to capture the combined fee</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="roles" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Role-based access</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Share a wallet's visibility without sharing its custody. Sanctuary defines three roles per wallet, and groups let you apply the same permissions to a whole family or team.</p>
+        <div class="mt-4 overflow-x-auto rounded-lg border border-sanctuary-200 dark:border-sanctuary-800">
+          <table class="w-full text-sm">
+            <thead class="bg-sanctuary-100 dark:bg-sanctuary-900 text-left">
+              <tr>
+                <th class="px-4 py-3 font-display font-semibold">Role</th>
+                <th class="px-4 py-3 font-display font-semibold">View</th>
+                <th class="px-4 py-3 font-display font-semibold">Edit labels</th>
+                <th class="px-4 py-3 font-display font-semibold">Create tx</th>
+                <th class="px-4 py-3 font-display font-semibold">Share / delete</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-sanctuary-950 divide-y divide-sanctuary-200 dark:divide-sanctuary-800">
+              <tr><td class="px-4 py-3 font-medium">Owner</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Signer</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-sanctuary-400">—</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Viewer</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓</td><td class="px-4 py-3 text-sanctuary-400">—</td><td class="px-4 py-3 text-sanctuary-400">—</td><td class="px-4 py-3 text-sanctuary-400">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">Admins can disable public registration so only invited users get accounts. Groups make it easy to give everyone the same access at once.</p>
+      </section>
+
+      <section id="airgap" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Air-gapped signing</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">For devices that never connect over USB — ColdCard, ColdCard Q, Keystone, Passport — Sanctuary speaks both QR codes and files.</p>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900">
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">QR code flow</h3>
+            <p class="mt-2 text-sm text-sanctuary-700 dark:text-sanctuary-200">Import xpubs by pointing your camera at the device, then sign PSBTs the same way — scan out, sign on the device, scan back in. Requires HTTPS for camera access.</p>
+          </div>
+          <div class="p-4 rounded-lg border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900">
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">MicroSD / file flow</h3>
+            <p class="mt-2 text-sm text-sanctuary-700 dark:text-sanctuary-200">Export a JSON descriptor or PSBT to a MicroSD card, sign on the device, bring it back. Works over plain HTTP too — handy when running on Umbrel.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tor" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Tor &amp; private Electrum</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">By default Sanctuary uses public Electrum servers, which means someone on the other end sees which addresses you query. Swap that out for your own server — or route everything through Tor — and the network profile of your wallet usage disappears.</p>
+<pre class="terminal mt-4" aria-label="enable Tor"><span class="prompt">$</span> ./start.sh --with-tor</pre>
+        <p class="mt-3 text-sm text-sanctuary-600 dark:text-sanctuary-300">Point Sanctuary at <a href="https://github.com/cculianu/Fulcrum" class="text-primary-700 dark:text-primary-700 hover:underline">Fulcrum</a>, <a href="https://github.com/romanz/electrs" class="text-primary-700 dark:text-primary-700 hover:underline">electrs</a>, or <a href="https://github.com/spesmilo/electrumx" class="text-primary-700 dark:text-primary-700 hover:underline">ElectrumX</a> over SSL or TCP via <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ELECTRUM_HOST</code> in your <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">.env</code>.</p>
+      </section>
+
+      <section id="2fa" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">2FA &amp; audit logging</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Opt-in TOTP-based two-factor authentication, backed by 10 single-use backup codes. Disabling 2FA requires both your password and a valid 2FA code — intentionally harder than enabling it.</p>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Sanctuary also maintains an audit log of security-relevant events — logins, permission changes, wallet shares, gateway/mobile API activity — visible to administrators.</p>
+      </section>
+
+      <section id="notifications" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Notifications</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Wallet activity can reach you on your terms:</p>
+        <ul class="mt-4 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Telegram</strong> — your own bot; per-wallet toggles for sent, received, consolidation events</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>In-browser sounds</strong> — 20 presets, configurable per event (receive, send, confirmation)</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Push</strong> — via the optional mobile API gateway (iOS via APNs, Android via FCM)</li>
+          <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Confirmation milestones</strong> — notifications at 1, 3, and 6 confirmations</li>
+        </ul>
+      </section>
+
+      <section id="backup" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Backup &amp; restore</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Export every piece of state Sanctuary holds — wallets, devices, users, 2FA settings, labels, groups, sharing permissions, audit logs — as a single JSON file. Restore onto the same instance to get everything back; restore onto a different instance and Sanctuary cleanly handles the encryption-boundary case.</p>
+        <div class="mt-4 overflow-x-auto rounded-lg border border-sanctuary-200 dark:border-sanctuary-800">
+          <table class="w-full text-sm">
+            <thead class="bg-sanctuary-100 dark:bg-sanctuary-900 text-left">
+              <tr>
+                <th class="px-4 py-3 font-display font-semibold">Data</th>
+                <th class="px-4 py-3 font-display font-semibold">Same instance</th>
+                <th class="px-4 py-3 font-display font-semibold">Different instance</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-sanctuary-950 divide-y divide-sanctuary-200 dark:divide-sanctuary-800">
+              <tr><td class="px-4 py-3">Wallets &amp; transactions</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td></tr>
+              <tr><td class="px-4 py-3">User accounts &amp; passwords</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td></tr>
+              <tr><td class="px-4 py-3">Transaction labels</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td></tr>
+              <tr><td class="px-4 py-3">Node config passwords</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">⚠ Cleared</td></tr>
+              <tr><td class="px-4 py-3">2FA secrets</td><td class="px-4 py-3 text-success-600 dark:text-success-600">✓ Restored</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">⚠ Cleared</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">Migrating servers? Copy <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_KEY</code> and <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_SALT</code> to the new instance before restoring — encrypted data comes along for the ride.</p>
+      </section>
+
+      <section id="hardware" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Hardware wallet support</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Sanctuary talks to the major hardware wallet vendors over USB, HID, Serial, or — for air-gapped devices — QR codes and files.</p>
+        <div class="mt-4 overflow-x-auto rounded-lg border border-sanctuary-200 dark:border-sanctuary-800">
+          <table class="w-full text-sm">
+            <thead class="bg-sanctuary-100 dark:bg-sanctuary-900 text-left">
+              <tr>
+                <th class="px-4 py-3 font-display font-semibold">Device</th>
+                <th class="px-4 py-3 font-display font-semibold">Connection</th>
+                <th class="px-4 py-3 font-display font-semibold">Requires HTTPS</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-sanctuary-950 divide-y divide-sanctuary-200 dark:divide-sanctuary-800">
+              <tr><td class="px-4 py-3 font-medium">Ledger Nano S / S+ / X / Stax / Flex</td><td class="px-4 py-3">WebUSB</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Trezor Model One / T / Safe 3 / 5 / 7</td><td class="px-4 py-3">Trezor Connect</td><td class="px-4 py-3 text-sanctuary-500">Either</td></tr>
+              <tr><td class="px-4 py-3 font-medium">BitBox02</td><td class="px-4 py-3">WebHID</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Blockstream Jade</td><td class="px-4 py-3">WebSerial (or QR)</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for USB</td></tr>
+              <tr><td class="px-4 py-3 font-medium">ColdCard</td><td class="px-4 py-3">File (MicroSD)</td><td class="px-4 py-3 text-sanctuary-500">No</td></tr>
+              <tr><td class="px-4 py-3 font-medium">ColdCard Q</td><td class="px-4 py-3">QR code or file</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for QR camera</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Keystone</td><td class="px-4 py-3">QR code or file</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for QR camera</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Passport</td><td class="px-4 py-3">QR code or file</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for QR camera</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">Browser support: WebUSB / WebHID / WebSerial work in Chrome, Edge, and Brave. Firefox and Safari don't implement these APIs, so they're limited to air-gapped (QR/file) flows.</p>
+      </section>
+
+      <!-- CTA -->
+      <section class="mt-10 p-6 sm:p-8 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-900/40">
+        <h2 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Ready to try it?</h2>
+        <p class="mt-2 text-sanctuary-700 dark:text-sanctuary-200">Install takes a couple of minutes on any Docker-capable machine. Remember — this software is experimental and has not been audited.</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a href="install.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary-800 text-primary-50 hover:bg-primary-700 font-medium text-sm transition-colors">Install guide <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="security.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-sanctuary-200 dark:border-sanctuary-700 hover:border-sanctuary-300 dark:hover:border-sanctuary-600 font-medium text-sm transition-colors">Security model</a>
+          <a href="disclaimer.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-warning-200 dark:border-warning-200 text-warning-700 dark:text-warning-700 hover:bg-warning-50 dark:hover:bg-warning-100 font-medium text-sm transition-colors">Disclaimer</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-sanctuary-500 dark:text-sanctuary-400">
+      <div class="flex items-center gap-2"><img src="assets/logo.svg" alt="" class="w-5 h-5" /><span class="font-mono">Sanctuary · MIT licensed</span></div>
+      <div class="flex gap-4"><a href="disclaimer.html" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Disclaimer</a><a href="https://github.com/nekoguntai/sanctuary" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">GitHub ↗</a></div>
+    </div>
+  </footer>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

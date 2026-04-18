@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="no-fouc">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanctuary — Your keys, your coins, your server.</title>
+  <meta name="description" content="Sanctuary is a self-hosted, open-source Bitcoin wallet coordinator. Your keys stay on your hardware wallet. Your data stays on your server." />
+  <meta name="theme-color" content="#0f0f10" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="canonical" href="https://nekoguntai.dev/sanctuary/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sanctuary" />
+  <meta property="og:title" content="Sanctuary — Your keys, your coins, your server." />
+  <meta property="og:description" content="A self-hosted, hardware-wallet-first Bitcoin wallet coordinator. Open source, MIT licensed. No accounts. No telemetry." />
+  <meta property="og:url" content="https://nekoguntai.dev/sanctuary/" />
+  <meta property="og:image" content="https://nekoguntai.dev/sanctuary/assets/screenshots/dashboard.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sanctuary — Your keys, your coins, your server." />
+  <meta name="twitter:description" content="A self-hosted, hardware-wallet-first Bitcoin wallet coordinator. Open source, MIT licensed." />
+  <meta name="twitter:image" content="https://nekoguntai.dev/sanctuary/assets/screenshots/dashboard.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/site.css" />
+
+  <!-- Apply the stored theme synchronously to prevent a flash of the wrong palette. -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('sanctuary-theme');
+        var dark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (_) { /* storage blocked; fall through to default */ }
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Structural neutrals (standard scale in both modes)
+            sanctuary: {
+              50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8',
+              400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46',
+              800: '#27272a', 900: '#18181b', 950: '#09090b',
+            },
+            // Theming palettes (CSS-variable driven so dark mode inverts automatically)
+            primary: {
+              50: 'var(--color-primary-50)',   100: 'var(--color-primary-100)',
+              200: 'var(--color-primary-200)', 300: 'var(--color-primary-300)',
+              400: 'var(--color-primary-400)', 500: 'var(--color-primary-500)',
+              600: 'var(--color-primary-600)', 700: 'var(--color-primary-700)',
+              800: 'var(--color-primary-800)', 900: 'var(--color-primary-900)',
+              950: 'var(--color-primary-950)',
+            },
+            success: {
+              50: 'var(--color-success-50)',   100: 'var(--color-success-100)',
+              200: 'var(--color-success-200)', 500: 'var(--color-success-500)',
+              600: 'var(--color-success-600)', 700: 'var(--color-success-700)',
+              800: 'var(--color-success-800)', 900: 'var(--color-success-900)',
+              950: 'var(--color-success-950)',
+            },
+            warning: {
+              50: 'var(--color-warning-50)',   100: 'var(--color-warning-100)',
+              200: 'var(--color-warning-200)', 500: 'var(--color-warning-500)',
+              600: 'var(--color-warning-600)', 700: 'var(--color-warning-700)',
+              800: 'var(--color-warning-800)', 900: 'var(--color-warning-900)',
+              950: 'var(--color-warning-950)',
+            },
+            zen: {
+              matcha: '#84a98c',
+              gold: '#d4b483',
+              indigo: '#2e4a7d',
+              vermilion: '#e05a47',
+              sakura: '#fcd9d9',
+            },
+          },
+          fontFamily: {
+            sans: ['General Sans', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['General Sans', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- CSS variables: theme palettes from themes/sanctuary/index.ts, inverted in dark mode. -->
+  <style>
+    :root {
+      --color-primary-50:  #fdfbf7;  --color-primary-100: #f5f2eb;
+      --color-primary-200: #e6e0d4;  --color-primary-300: #d4cbb8;
+      --color-primary-400: #a39e93;  --color-primary-500: #7d7870;
+      --color-primary-600: #5c5852;  --color-primary-700: #45423e;
+      --color-primary-800: #2e2c2a;  --color-primary-900: #1c1c1e;
+      --color-primary-950: #0f0f10;
+
+      --color-success-50:  #f4f8f5;  --color-success-100: #e2ede5;
+      --color-success-200: #c5dccb;  --color-success-500: #628b6b;
+      --color-success-600: #4a6e53;  --color-success-700: #3d5944;
+      --color-success-800: #334839;  --color-success-900: #2b3b30;
+      --color-success-950: #17211b;
+
+      --color-warning-50:  #fcf9f4;  --color-warning-100: #f8f1e1;
+      --color-warning-200: #efe0c0;  --color-warning-500: #b59056;
+      --color-warning-600: #96723e;  --color-warning-700: #795932;
+      --color-warning-800: #644a2d;  --color-warning-900: #533e28;
+      --color-warning-950: #2d2114;
+    }
+    .dark {
+      --color-primary-50:  #1a1917;  --color-primary-100: #2b261f;
+      --color-primary-200: #453d30;  --color-primary-300: #6b5d46;
+      --color-primary-400: #968362;  --color-primary-500: #bfa57a;
+      --color-primary-600: #d4b483;  --color-primary-700: #e6dcc8;
+      --color-primary-800: #f2efe9;  --color-primary-900: #fdfbf7;
+      --color-primary-950: #ffffff;
+
+      --color-success-50:  #17211b;  --color-success-100: #2b3b30;
+      --color-success-200: #334839;  --color-success-500: #628b6b;
+      --color-success-600: #84a98c;  --color-success-700: #9fc4a9;
+      --color-success-800: #c5dccb;  --color-success-900: #e2ede5;
+      --color-success-950: #f4f8f5;
+
+      --color-warning-50:  #2d2114;  --color-warning-100: #533e28;
+      --color-warning-200: #644a2d;  --color-warning-500: #b59056;
+      --color-warning-600: #d4b483;  --color-warning-700: #e3ca98;
+      --color-warning-800: #efe0c0;  --color-warning-900: #f8f1e1;
+      --color-warning-950: #fcf9f4;
+    }
+  </style>
+</head>
+
+<body class="bg-sanctuary-50 text-sanctuary-900 dark:bg-sanctuary-950 dark:text-sanctuary-100 antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ====================== Header ====================== -->
+  <header class="sticky top-0 z-40 bg-sanctuary-50/85 dark:bg-sanctuary-950/85 backdrop-blur-md border-b border-sanctuary-200 dark:border-sanctuary-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <img src="assets/logo.svg" alt="" class="w-8 h-8" width="32" height="32" />
+        <span class="font-display font-semibold text-lg tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Sanctuary</span>
+      </a>
+      <nav aria-label="Primary" class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <a href="features.html"    class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Features</a>
+        <a href="security.html"    class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Security</a>
+        <a href="install.html"     class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Install</a>
+        <a href="faq.html"         class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">FAQ</a>
+        <a href="about.html"       class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">About</a>
+      </nav>
+      <div class="flex items-center gap-1">
+        <a href="https://github.com/nekoguntai/sanctuary" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors" aria-label="Sanctuary on GitHub">
+          <svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.3-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.77 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.6.23 2.77.11 3.07.74.8 1.19 1.83 1.19 3.08 0 4.41-2.68 5.38-5.24 5.67.41.35.78 1.05.78 2.13v3.15c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <button type="button" data-theme-toggle aria-pressed="false" aria-label="Toggle dark mode" class="inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">
+          <svg data-icon="sun"  viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg data-icon="moon" viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button type="button" data-mobile-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">
+          <svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav" data-mobile-nav class="mobile-nav md:hidden border-t border-sanctuary-200 dark:border-sanctuary-800">
+      <div class="px-4 py-3 flex flex-col gap-1 text-sm font-medium">
+        <a href="features.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Features</a>
+        <a href="security.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Security</a>
+        <a href="install.html"  class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Install</a>
+        <a href="faq.html"      class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">FAQ</a>
+        <a href="about.html"    class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">About</a>
+        <a href="https://github.com/nekoguntai/sanctuary" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">GitHub ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ====================== Hero ====================== -->
+    <section class="relative overflow-hidden hero-glow">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20 text-center">
+        <a href="disclaimer.html" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800 dark:bg-warning-100 dark:text-warning-900 border border-warning-200 dark:border-warning-200 animate-fade-in-up">
+          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.72 3h16.92a2 2 0 0 0 1.72-3L13.7 3.86a2 2 0 0 0-3.4 0z"/></svg>
+          Experimental software — read the disclaimer
+        </a>
+        <h1 class="mt-6 font-display font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-sanctuary-900 dark:text-sanctuary-50 animate-fade-in-up-1">
+          Your keys, your coins,
+          <span class="whitespace-nowrap text-zen-gold">your server.</span>
+        </h1>
+        <p class="mt-6 max-w-2xl mx-auto text-base sm:text-lg text-sanctuary-600 dark:text-sanctuary-300 leading-relaxed animate-fade-in-up-2">
+          Sanctuary is a self-hosted Bitcoin wallet coordinator for security-conscious users.
+          Signing happens on your hardware wallet — never in the browser, never on a server.
+          Run it locally, on your private server, or in the cloud.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 animate-fade-in-up-3">
+          <a href="install.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-primary-800 text-primary-50 hover:bg-primary-700 font-medium transition-colors shadow-sm">
+            Install Sanctuary
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="https://github.com/nekoguntai/sanctuary" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-white dark:bg-sanctuary-900 text-sanctuary-800 dark:text-sanctuary-100 border border-sanctuary-200 dark:border-sanctuary-700 hover:border-sanctuary-300 dark:hover:border-sanctuary-600 font-medium transition-colors">
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.3-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.77 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.6.23 2.77.11 3.07.74.8 1.19 1.83 1.19 3.08 0 4.41-2.68 5.38-5.24 5.67.41.35.78 1.05.78 2.13v3.15c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+            View source
+          </a>
+        </div>
+        <p class="mt-6 text-xs font-mono text-sanctuary-500 dark:text-sanctuary-400 animate-fade-in-up-4">
+          Open source · MIT licensed · No accounts · No telemetry
+        </p>
+      </div>
+
+      <!-- Hero screenshot -->
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <div class="relative rounded-2xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 shadow-xl overflow-hidden animate-fade-in-up-4">
+          <img src="assets/screenshots/dashboard.png"
+               alt="Sanctuary dashboard showing wallet balances, recent transactions, and hardware device status"
+               class="w-full h-auto screenshot-thumb"
+               data-lightbox-src="assets/screenshots/dashboard.png"
+               data-lightbox-alt="Sanctuary dashboard"
+               loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond"></span>
+      <span class="label">Principles</span>
+      <span class="diamond"></span>
+    </div>
+
+    <!-- ====================== Three pillars ====================== -->
+    <section class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Pillar 1: Self-custody -->
+          <div class="p-6 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="w-10 h-10 rounded-lg bg-success-100 dark:bg-success-100 text-success-700 dark:text-success-700 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            </div>
+            <h3 class="mt-4 font-display font-semibold text-lg text-sanctuary-900 dark:text-sanctuary-50">Self-custody, by design</h3>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300 leading-relaxed">
+              Sanctuary never holds your private keys. It builds and coordinates transactions; signing happens exclusively on your hardware wallet, with every detail shown on the device for you to verify.
+            </p>
+          </div>
+          <!-- Pillar 2: Self-hosted -->
+          <div class="p-6 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-200 text-primary-800 dark:text-primary-900 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 8h.01M6 18h.01"/></svg>
+            </div>
+            <h3 class="mt-4 font-display font-semibold text-lg text-sanctuary-900 dark:text-sanctuary-50">Self-hosted, always</h3>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300 leading-relaxed">
+              Run Sanctuary on your laptop, a home server, or Umbrel — wherever you already trust. No third-party accounts, no tracking, no hosted backend between you and your coins.
+            </p>
+          </div>
+          <!-- Pillar 3: Hardware native -->
+          <div class="p-6 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="w-10 h-10 rounded-lg bg-warning-100 dark:bg-warning-200 text-warning-800 dark:text-warning-900 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h4M7 13h4M15 9h2M15 13h2"/></svg>
+            </div>
+            <h3 class="mt-4 font-display font-semibold text-lg text-sanctuary-900 dark:text-sanctuary-50">Hardware-wallet native</h3>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300 leading-relaxed">
+              Works with Ledger, Trezor, BitBox02, Jade, ColdCard, Keystone, and Passport — over USB or fully air-gapped via QR codes and PSBTs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond sm"></span>
+      <span class="diamond"></span>
+      <span class="diamond sm"></span>
+    </div>
+
+    <!-- ====================== Screenshots ====================== -->
+    <section class="py-16 sm:py-24 bg-sanctuary-100/60 dark:bg-sanctuary-900/40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">A closer look</p>
+          <h2 class="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Built for clarity and control.</h2>
+          <p class="mt-4 text-base text-sanctuary-600 dark:text-sanctuary-300">
+            A purposeful interface that surfaces what matters — balances, UTXOs, fees, device status — without hiding the details advanced users rely on.
+          </p>
+        </div>
+        <div class="mt-10 grid sm:grid-cols-2 gap-4 sm:gap-6">
+          <figure class="rounded-xl overflow-hidden border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 shadow-sm">
+            <img src="assets/screenshots/wallet.png"   alt="Wallet detail view with transaction history and coin control" class="w-full h-auto screenshot-thumb" data-lightbox-src="assets/screenshots/wallet.png"   data-lightbox-alt="Wallet detail view" loading="lazy" />
+            <figcaption class="px-4 py-3 text-xs font-mono text-sanctuary-500 dark:text-sanctuary-400 border-t border-sanctuary-200 dark:border-sanctuary-800">Wallet · transaction history &amp; UTXO control</figcaption>
+          </figure>
+          <figure class="rounded-xl overflow-hidden border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 shadow-sm">
+            <img src="assets/screenshots/send.png"     alt="Send flow with fee estimation and hardware wallet confirmation" class="w-full h-auto screenshot-thumb" data-lightbox-src="assets/screenshots/send.png"     data-lightbox-alt="Send transaction flow" loading="lazy" />
+            <figcaption class="px-4 py-3 text-xs font-mono text-sanctuary-500 dark:text-sanctuary-400 border-t border-sanctuary-200 dark:border-sanctuary-800">Send · PSBT construction &amp; device signing</figcaption>
+          </figure>
+          <figure class="rounded-xl overflow-hidden border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 shadow-sm sm:col-span-2">
+            <img src="assets/screenshots/settings.png" alt="Settings page showing theme customization and security preferences" class="w-full h-auto screenshot-thumb" data-lightbox-src="assets/screenshots/settings.png" data-lightbox-alt="Settings page" loading="lazy" />
+            <figcaption class="px-4 py-3 text-xs font-mono text-sanctuary-500 dark:text-sanctuary-400 border-t border-sanctuary-200 dark:border-sanctuary-800">Settings · themes, 2FA, and server configuration</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond"></span>
+      <span class="label">Capabilities</span>
+      <span class="diamond"></span>
+    </div>
+
+    <!-- ====================== Feature highlights ====================== -->
+    <section class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">What's inside</p>
+          <h2 class="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Everything a coordinator should do — and nothing it shouldn't.</h2>
+        </div>
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <!-- Feature cards -->
+          <a href="features.html#multisig" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Single-sig &amp; multisig</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Coordinate across multiple devices and co-signers — from simple single-sig to 2-of-3 and beyond.</p>
+          </a>
+          <a href="features.html#psbt" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">PSBT workflow</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Standards-based partially-signed Bitcoin transactions — portable between devices and co-signers.</p>
+          </a>
+          <a href="features.html#rbf-cpfp" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">RBF &amp; CPFP</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Bump stuck transactions with Replace-By-Fee or accelerate a parent with Child-Pays-For-Parent.</p>
+          </a>
+          <a href="features.html#roles" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Role-based access</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Owner, Signer, and Viewer roles for families and teams. Share wallets without sharing custody.</p>
+          </a>
+          <a href="features.html#airgap" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M21 14v7h-7M17 17v4"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Air-gapped signing</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Import xpubs and sign PSBTs over QR codes — no cable, no bridge, no exposure.</p>
+          </a>
+          <a href="features.html#tor" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Tor &amp; private nodes</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Route through Tor and point at your own Electrum server so no third party watches your addresses.</p>
+          </a>
+          <a href="features.html#2fa" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">2FA &amp; audit log</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Optional TOTP with backup codes. Every security-relevant event is recorded for review.</p>
+          </a>
+          <a href="features.html#notifications" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Notifications</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Real-time transaction alerts via Telegram bot or the companion mobile gateway — on your terms.</p>
+          </a>
+          <a href="features.html#backup" class="block p-5 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 card-hover">
+            <div class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-600 dark:text-success-600" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">Backup &amp; restore</h3>
+            </div>
+            <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300">Full data export and import — migrate between machines or keep offline snapshots of your config.</p>
+          </a>
+        </div>
+        <div class="mt-10 text-center">
+          <a href="features.html" class="inline-flex items-center gap-1.5 font-medium text-primary-700 dark:text-primary-700 hover:text-primary-900 dark:hover:text-primary-900 transition-colors">
+            See all features
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond sm"></span>
+      <span class="diamond"></span>
+      <span class="diamond sm"></span>
+    </div>
+
+    <!-- ====================== Hardware wallets ====================== -->
+    <section class="py-16 sm:py-20 bg-sanctuary-100/60 dark:bg-sanctuary-900/40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">Works with your device</p>
+        <h2 class="mt-2 font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Broad hardware wallet support.</h2>
+        <div class="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3 text-sm">
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">Ledger</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">Trezor</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">BitBox02</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">Blockstream Jade</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">ColdCard</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">Keystone</span>
+          <span class="px-4 py-2 rounded-full border border-sanctuary-200 dark:border-sanctuary-700 bg-white dark:bg-sanctuary-900 text-sanctuary-700 dark:text-sanctuary-200 font-medium">Passport</span>
+        </div>
+        <p class="mt-6 text-sm text-sanctuary-500 dark:text-sanctuary-400">
+          USB, Bluetooth-free, or fully air-gapped via QR.
+          <a href="features.html#hardware" class="text-primary-700 dark:text-primary-700 hover:underline">See compatibility details →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond"></span>
+      <span class="label">Get started</span>
+      <span class="diamond"></span>
+    </div>
+
+    <!-- ====================== Install preview ====================== -->
+    <section class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">Get running in minutes</p>
+          <h2 class="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">One command. Any machine you trust.</h2>
+          <p class="mt-4 text-base text-sanctuary-600 dark:text-sanctuary-300">
+            Docker does the heavy lifting. Pick the path that matches where you want Sanctuary to live.
+          </p>
+        </div>
+
+        <div class="mt-10 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 overflow-hidden">
+          <div role="tablist" aria-label="Install methods" data-install-tabs class="flex border-b border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-50 dark:bg-sanctuary-950 px-2 overflow-x-auto">
+            <button role="tab" aria-selected="true"  aria-controls="panel-script"  id="tab-script"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="0">Script</button>
+            <button role="tab" aria-selected="false" aria-controls="panel-docker"  id="tab-docker"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="-1">Docker</button>
+            <button role="tab" aria-selected="false" aria-controls="panel-umbrel"  id="tab-umbrel"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="-1">Umbrel</button>
+          </div>
+          <div class="p-5 sm:p-6">
+            <div id="panel-script" role="tabpanel" aria-labelledby="tab-script" data-install-panel class="install-panel active">
+              <p class="text-sm text-sanctuary-600 dark:text-sanctuary-300 mb-3">Fastest path. Clones the repo, pulls images, and starts the stack.</p>
+<pre class="terminal" aria-label="install script"><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/nekoguntai/sanctuary/main/install.sh | bash</pre>
+            </div>
+            <div id="panel-docker" role="tabpanel" aria-labelledby="tab-docker" data-install-panel class="install-panel">
+              <p class="text-sm text-sanctuary-600 dark:text-sanctuary-300 mb-3">Clone and run with Docker Compose for more control over configuration.</p>
+<pre class="terminal" aria-label="docker install"><span class="prompt">$</span> git clone https://github.com/nekoguntai/sanctuary &amp;&amp; cd sanctuary
+<span class="prompt">$</span> ./start.sh</pre>
+            </div>
+            <div id="panel-umbrel" role="tabpanel" aria-labelledby="tab-umbrel" data-install-panel class="install-panel">
+              <p class="text-sm text-sanctuary-600 dark:text-sanctuary-300 mb-3">Install from the Umbrel App Store if you run an Umbrel node — auto-detects your local Electrum server.</p>
+<pre class="terminal" aria-label="umbrel install"><span class="prompt">#</span> Open Umbrel → App Store → search "Sanctuary" → Install</pre>
+            </div>
+          </div>
+          <div class="px-5 sm:px-6 py-4 border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-50 dark:bg-sanctuary-950 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
+            <span class="text-sanctuary-500 dark:text-sanctuary-400">Requires Docker. Works on Linux, macOS, and Windows (WSL2).</span>
+            <a href="install.html" class="inline-flex items-center gap-1.5 font-medium text-primary-700 dark:text-primary-700 hover:text-primary-900 dark:hover:text-primary-900 transition-colors">
+              Full install guide
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond sm"></span>
+      <span class="diamond"></span>
+      <span class="diamond sm"></span>
+    </div>
+
+    <!-- ====================== Experimental callout ====================== -->
+    <section class="pb-16 sm:pb-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-xl border border-warning-200 dark:border-warning-200 bg-warning-50 dark:bg-warning-100 p-6 sm:p-8">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-lg bg-warning-100 dark:bg-warning-200 text-warning-800 dark:text-warning-900 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.72 3h16.92a2 2 0 0 0 1.72-3L13.7 3.86a2 2 0 0 0-3.4 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-display font-semibold text-lg text-warning-900 dark:text-warning-900">Experimental software</h3>
+              <p class="mt-2 text-sm text-warning-800 dark:text-warning-800 leading-relaxed">
+                Sanctuary is in an early experimental stage and has not undergone a formal security audit.
+                Features may change without notice.
+                <strong>Do not use with significant amounts of Bitcoin.</strong>
+                Always verify every transaction on your hardware wallet before signing.
+              </p>
+              <a href="disclaimer.html" class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-warning-900 dark:text-warning-900 hover:underline">
+                Read the full disclaimer
+                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================== Footer ====================== -->
+  <footer class="border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2.5">
+            <img src="assets/logo.svg" alt="" class="w-8 h-8" width="32" height="32" />
+            <span class="font-display font-semibold text-lg tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Sanctuary</span>
+          </a>
+          <p class="mt-3 max-w-sm text-sm text-sanctuary-600 dark:text-sanctuary-300">Your keys, your coins, your server. A self-hosted, hardware-wallet-first Bitcoin wallet coordinator.</p>
+          <p class="mt-4 text-xs font-mono text-sanctuary-500 dark:text-sanctuary-400">Open source · MIT licensed</p>
+        </div>
+        <div>
+          <h4 class="font-display font-semibold text-sm text-sanctuary-900 dark:text-sanctuary-50">Project</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="features.html" class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Features</a></li>
+            <li><a href="security.html" class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Security</a></li>
+            <li><a href="install.html"  class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Install</a></li>
+            <li><a href="faq.html"      class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">FAQ</a></li>
+            <li><a href="about.html"    class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-semibold text-sm text-sanctuary-900 dark:text-sanctuary-50">Resources</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="https://github.com/nekoguntai/sanctuary"                    class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">GitHub ↗</a></li>
+            <li><a href="https://github.com/nekoguntai/sanctuary/releases"           class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Releases ↗</a></li>
+            <li><a href="https://github.com/nekoguntai/sanctuary/issues"             class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Report an issue ↗</a></li>
+            <li><a href="disclaimer.html" class="text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-sanctuary-200 dark:border-sanctuary-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-sanctuary-500 dark:text-sanctuary-400">
+        <p>Don't trust. Verify.</p>
+        <p>No warranty. Use at your own risk. Not financial advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site.js" defer></script>
+</body>
+</html>

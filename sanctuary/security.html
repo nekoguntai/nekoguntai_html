@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="no-fouc">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security — Sanctuary</title>
+  <meta name="description" content="Sanctuary's security model: what it holds, what it never holds, how signing works end-to-end, and what you're responsible for as the operator." />
+  <meta name="theme-color" content="#0f0f10" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="canonical" href="https://nekoguntai.dev/sanctuary/security.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sanctuary" />
+  <meta property="og:title" content="Security — Sanctuary" />
+  <meta property="og:description" content="The security model behind Sanctuary: watch-only architecture, hardware-wallet signing, self-hosted deployment, and operator responsibilities." />
+  <meta property="og:url" content="https://nekoguntai.dev/sanctuary/security.html" />
+  <meta property="og:image" content="https://nekoguntai.dev/sanctuary/assets/architecture.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Security — Sanctuary" />
+  <meta name="twitter:description" content="Watch-only coordinator. Signing happens on your hardware wallet. Don't trust. Verify." />
+  <meta name="twitter:image" content="https://nekoguntai.dev/sanctuary/assets/architecture.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script>(function(){try{var s=localStorage.getItem('sanctuary-theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(_){}})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {
+      colors: {
+        sanctuary: { 50:'#fafafa',100:'#f4f4f5',200:'#e4e4e7',300:'#d4d4d8',400:'#a1a1aa',500:'#71717a',600:'#52525b',700:'#3f3f46',800:'#27272a',900:'#18181b',950:'#09090b' },
+        primary: { 50:'var(--color-primary-50)',100:'var(--color-primary-100)',200:'var(--color-primary-200)',300:'var(--color-primary-300)',400:'var(--color-primary-400)',500:'var(--color-primary-500)',600:'var(--color-primary-600)',700:'var(--color-primary-700)',800:'var(--color-primary-800)',900:'var(--color-primary-900)',950:'var(--color-primary-950)' },
+        warning: { 50:'var(--color-warning-50)',100:'var(--color-warning-100)',200:'var(--color-warning-200)',500:'var(--color-warning-500)',600:'var(--color-warning-600)',700:'var(--color-warning-700)',800:'var(--color-warning-800)',900:'var(--color-warning-900)',950:'var(--color-warning-950)' },
+        success: { 50:'var(--color-success-50)',100:'var(--color-success-100)',200:'var(--color-success-200)',500:'var(--color-success-500)',600:'var(--color-success-600)',700:'var(--color-success-700)',800:'var(--color-success-800)',900:'var(--color-success-900)',950:'var(--color-success-950)' },
+        zen: { matcha:'#84a98c', gold:'#d4b483', indigo:'#2e4a7d', vermilion:'#e05a47', sakura:'#fcd9d9' },
+      },
+      fontFamily: { sans:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], display:['General Sans','Inter','ui-sans-serif','system-ui','sans-serif'], mono:['JetBrains Mono','ui-monospace','SFMono-Regular','monospace'] },
+    } } };
+  </script>
+  <style>
+    :root{--color-primary-50:#fdfbf7;--color-primary-100:#f5f2eb;--color-primary-200:#e6e0d4;--color-primary-300:#d4cbb8;--color-primary-400:#a39e93;--color-primary-500:#7d7870;--color-primary-600:#5c5852;--color-primary-700:#45423e;--color-primary-800:#2e2c2a;--color-primary-900:#1c1c1e;--color-primary-950:#0f0f10;--color-success-50:#f4f8f5;--color-success-100:#e2ede5;--color-success-200:#c5dccb;--color-success-500:#628b6b;--color-success-600:#4a6e53;--color-success-700:#3d5944;--color-success-800:#334839;--color-success-900:#2b3b30;--color-success-950:#17211b;--color-warning-50:#fcf9f4;--color-warning-100:#f8f1e1;--color-warning-200:#efe0c0;--color-warning-500:#b59056;--color-warning-600:#96723e;--color-warning-700:#795932;--color-warning-800:#644a2d;--color-warning-900:#533e28;--color-warning-950:#2d2114;}
+    .dark{--color-primary-50:#1a1917;--color-primary-100:#2b261f;--color-primary-200:#453d30;--color-primary-300:#6b5d46;--color-primary-400:#968362;--color-primary-500:#bfa57a;--color-primary-600:#d4b483;--color-primary-700:#e6dcc8;--color-primary-800:#f2efe9;--color-primary-900:#fdfbf7;--color-primary-950:#ffffff;--color-success-50:#17211b;--color-success-100:#2b3b30;--color-success-200:#334839;--color-success-500:#628b6b;--color-success-600:#84a98c;--color-success-700:#9fc4a9;--color-success-800:#c5dccb;--color-success-900:#e2ede5;--color-success-950:#f4f8f5;--color-warning-50:#2d2114;--color-warning-100:#533e28;--color-warning-200:#644a2d;--color-warning-500:#b59056;--color-warning-600:#d4b483;--color-warning-700:#e3ca98;--color-warning-800:#efe0c0;--color-warning-900:#f8f1e1;--color-warning-950:#fcf9f4;}
+  </style>
+</head>
+<body class="bg-sanctuary-50 text-sanctuary-900 dark:bg-sanctuary-950 dark:text-sanctuary-100 antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="sticky top-0 z-40 bg-sanctuary-50/85 dark:bg-sanctuary-950/85 backdrop-blur-md border-b border-sanctuary-200 dark:border-sanctuary-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5"><img src="assets/logo.svg" alt="" class="w-8 h-8" width="32" height="32" /><span class="font-display font-semibold text-lg tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Sanctuary</span></a>
+      <nav aria-label="Primary" class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <a href="features.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Features</a>
+        <a href="security.html" aria-current="page" class="px-3 py-2 rounded-md bg-sanctuary-100 dark:bg-sanctuary-800 text-sanctuary-900 dark:text-sanctuary-50">Security</a>
+        <a href="install.html"  class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">Install</a>
+        <a href="faq.html"      class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">FAQ</a>
+        <a href="about.html"    class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors">About</a>
+      </nav>
+      <div class="flex items-center gap-1">
+        <a href="https://github.com/nekoguntai/sanctuary" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.3-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.77 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.6.23 2.77.11 3.07.74.8 1.19 1.83 1.19 3.08 0 4.41-2.68 5.38-5.24 5.67.41.35.78 1.05.78 2.13v3.15c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg><span>GitHub</span></a>
+        <button type="button" data-theme-toggle aria-pressed="false" aria-label="Toggle dark mode" class="inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg data-icon="sun" viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg data-icon="moon" viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button type="button" data-mobile-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800 transition-colors"><svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </div>
+    </div>
+    <div id="mobile-nav" data-mobile-nav class="mobile-nav md:hidden border-t border-sanctuary-200 dark:border-sanctuary-800"><div class="px-4 py-3 flex flex-col gap-1 text-sm font-medium"><a href="features.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Features</a><a href="security.html" class="px-3 py-2 rounded-md bg-sanctuary-100 dark:bg-sanctuary-800">Security</a><a href="install.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">Install</a><a href="faq.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">FAQ</a><a href="about.html" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">About</a><a href="https://github.com/nekoguntai/sanctuary" class="px-3 py-2 rounded-md hover:bg-sanctuary-100 dark:hover:bg-sanctuary-800">GitHub ↗</a></div></div>
+  </header>
+
+  <main id="main">
+    <!-- Intro -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-10">
+      <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">Security</p>
+      <h1 class="mt-2 font-display font-semibold text-4xl sm:text-5xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Don't trust. Verify.</h1>
+      <p class="mt-4 text-lg text-sanctuary-600 dark:text-sanctuary-300">Sanctuary is a <strong>watch-only coordinator</strong>. It sees what your addresses see on-chain — and builds transactions for your hardware wallet to sign. That's all. The architecture below exists so you can inspect exactly what it holds, where it runs, and where trust lands.</p>
+      <div class="mt-6 p-4 rounded-lg border border-warning-200 dark:border-warning-200 bg-warning-50 dark:bg-warning-100 text-sm text-warning-800 dark:text-warning-800">
+        <strong>Status: experimental, pre-audit.</strong> The design goals below are implemented, but the code has not been independently reviewed. Do not use with significant funds. Read the <a href="disclaimer.html" class="underline">full disclaimer</a>.
+      </div>
+    </section>
+
+    <!-- What it holds -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">What Sanctuary holds — and what it never holds</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-4">
+        <div class="p-5 rounded-xl border border-success-200 dark:border-success-200 bg-success-50 dark:bg-success-100">
+          <div class="flex items-center gap-2">
+            <svg viewBox="0 0 24 24" class="w-5 h-5 text-success-700 dark:text-success-700" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <h3 class="font-display font-semibold text-success-900 dark:text-success-900">Stored on your server</h3>
+          </div>
+          <ul class="mt-3 space-y-2 text-sm text-success-900 dark:text-success-900">
+            <li>› Extended public keys (xpubs) — watch-only</li>
+            <li>› Wallet metadata (names, descriptors, settings)</li>
+            <li>› Transaction and address history</li>
+            <li>› Address derivation state</li>
+            <li>› Labels and user-supplied annotations</li>
+            <li>› User accounts, preferences, encrypted 2FA secrets</li>
+            <li>› Audit logs of security-relevant events</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl border border-warning-200 dark:border-warning-200 bg-warning-50 dark:bg-warning-100">
+          <div class="flex items-center gap-2">
+            <svg viewBox="0 0 24 24" class="w-5 h-5 text-warning-800 dark:text-warning-900" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            <h3 class="font-display font-semibold text-warning-900 dark:text-warning-900">Never stored, never transmitted</h3>
+          </div>
+          <ul class="mt-3 space-y-2 text-sm text-warning-900 dark:text-warning-900">
+            <li>› Private keys</li>
+            <li>› Seed phrases</li>
+            <li>› Wallet passwords / passphrases</li>
+            <li>› Hardware-wallet PINs</li>
+          </ul>
+          <p class="mt-4 text-sm text-warning-800 dark:text-warning-800">These live only on your hardware wallet. Sanctuary has no way to recover funds if that device is lost without its seed backup.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider -->
+    <div class="section-rule" aria-hidden="true">
+      <span class="diamond"></span>
+      <span class="label">How signing works</span>
+      <span class="diamond"></span>
+    </div>
+
+    <!-- Signing flow -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">The signing flow, end-to-end</h2>
+      <ol class="mt-6 space-y-4">
+        <li class="flex gap-4">
+          <span class="shrink-0 w-8 h-8 rounded-full bg-primary-800 text-primary-50 dark:bg-primary-200 dark:text-primary-900 flex items-center justify-center font-mono font-semibold text-sm">1</span>
+          <div>
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">You build the transaction in Sanctuary</h3>
+            <p class="mt-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">Recipient, amount, fee rate, UTXO selection. Sanctuary assembles this into a PSBT — a standard format that describes the transaction without any signatures.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="shrink-0 w-8 h-8 rounded-full bg-primary-800 text-primary-50 dark:bg-primary-200 dark:text-primary-900 flex items-center justify-center font-mono font-semibold text-sm">2</span>
+          <div>
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">The PSBT is handed to your hardware wallet</h3>
+            <p class="mt-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">Over USB (WebUSB / WebHID / WebSerial), over QR code, or over a file on MicroSD. Pick whichever gives you the isolation you want.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="shrink-0 w-8 h-8 rounded-full bg-primary-800 text-primary-50 dark:bg-primary-200 dark:text-primary-900 flex items-center justify-center font-mono font-semibold text-sm">3</span>
+          <div>
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">You verify on the device screen</h3>
+            <p class="mt-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">This is the load-bearing step. The hardware wallet shows the recipient address, amount, and fee — rendered by the device itself, not by Sanctuary. If those match what you intended, press confirm. If they don't, <em>refuse</em>.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="shrink-0 w-8 h-8 rounded-full bg-primary-800 text-primary-50 dark:bg-primary-200 dark:text-primary-900 flex items-center justify-center font-mono font-semibold text-sm">4</span>
+          <div>
+            <h3 class="font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">The signed PSBT comes back</h3>
+            <p class="mt-1 text-sm text-sanctuary-700 dark:text-sanctuary-200">The signature was computed inside the hardware wallet. The private key never leaves it. Sanctuary takes the signed PSBT, finalizes it, and broadcasts it to the network.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="mt-6 text-sm text-sanctuary-600 dark:text-sanctuary-300"><strong>The rule:</strong> if Sanctuary is ever compromised, the worst an attacker can do is present a false transaction for your device to sign. The device's screen is your last line of verification — <strong>always read it before you press confirm</strong>.</p>
+    </section>
+
+    <!-- Architecture -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Architecture</h2>
+      <figure class="mt-6 rounded-xl overflow-hidden border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900">
+        <img src="assets/architecture.png" alt="Sanctuary architecture diagram showing frontend, backend, worker, gateway, Redis, and PostgreSQL components" class="w-full h-auto screenshot-thumb" data-lightbox-src="assets/architecture.png" data-lightbox-alt="Sanctuary architecture" loading="lazy" />
+      </figure>
+      <div class="mt-6 overflow-x-auto rounded-lg border border-sanctuary-200 dark:border-sanctuary-800">
+        <table class="w-full text-sm">
+          <thead class="bg-sanctuary-100 dark:bg-sanctuary-900 text-left">
+            <tr>
+              <th class="px-4 py-3 font-display font-semibold">Component</th>
+              <th class="px-4 py-3 font-display font-semibold">Port</th>
+              <th class="px-4 py-3 font-display font-semibold">Purpose</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-sanctuary-950 divide-y divide-sanctuary-200 dark:divide-sanctuary-800">
+            <tr><td class="px-4 py-3 font-medium">Frontend</td><td class="px-4 py-3 font-mono text-xs">:8443</td><td class="px-4 py-3">React UI served via nginx (HTTPS for WebUSB)</td></tr>
+            <tr><td class="px-4 py-3 font-medium">Backend</td><td class="px-4 py-3 font-mono text-xs">:3001</td><td class="px-4 py-3">Node.js API — wallet logic and user requests</td></tr>
+            <tr><td class="px-4 py-3 font-medium">Worker</td><td class="px-4 py-3 font-mono text-xs">:3002</td><td class="px-4 py-3">Electrum subscriptions, sync, notifications, confirmations</td></tr>
+            <tr><td class="px-4 py-3 font-medium">Gateway</td><td class="px-4 py-3 font-mono text-xs">:4000</td><td class="px-4 py-3">Mobile API with JWT auth, route whitelisting, rate limiting</td></tr>
+            <tr><td class="px-4 py-3 font-medium">Redis</td><td class="px-4 py-3 font-mono text-xs">:6379</td><td class="px-4 py-3">Job queue (BullMQ) and distributed cache</td></tr>
+            <tr><td class="px-4 py-3 font-medium">PostgreSQL</td><td class="px-4 py-3 font-mono text-xs">:5432</td><td class="px-4 py-3">Primary database</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">All components run in Docker containers under your control. None of them reach out to a Sanctuary-owned service — there isn't one.</p>
+    </section>
+
+    <!-- HTTPS / WebUSB -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">HTTPS &amp; secure contexts</h2>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Browsers only expose WebUSB, WebHID, WebSerial, and camera APIs from a <strong>secure context</strong> — HTTPS or <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">localhost</code>. The default setup ships HTTPS on port 8443 with a self-signed certificate. That's why you see a certificate warning on first visit — it's expected and you should proceed past it on <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">localhost</code>.</p>
+      <ul class="mt-4 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> HTTP requests on port 8080 are redirected to HTTPS.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> For a cleaner local experience, use <a href="https://github.com/FiloSottile/mkcert" class="text-primary-700 dark:text-primary-700 hover:underline">mkcert</a> to generate a locally-trusted cert.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> For production on a domain, drop a Let's Encrypt certificate into <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">docker/nginx/ssl/</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Encryption at rest -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Encryption at rest</h2>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Sensitive values — Electrum node passwords, 2FA shared secrets — are encrypted in the database using the <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_KEY</code> / <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_SALT</code> pair generated during install. User passwords are hashed with bcrypt. Electrum server TLS certificates are verified by default; self-signed certs are rejected unless explicitly allowed.</p>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">When restoring a backup onto a <em>different</em> instance (different encryption key), the data you can still decrypt is imported cleanly; anything tied to the old encryption boundary is cleared with a clear warning, never silently re-keyed. See <a href="features.html#backup" class="text-primary-700 dark:text-primary-700 hover:underline">Backup &amp; restore</a> for the full matrix.</p>
+    </section>
+
+    <!-- Network exposure -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Network exposure</h2>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">By default Docker binds ports to <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">0.0.0.0</code>, meaning Sanctuary is reachable from every device on your LAN. To restrict to localhost only:</p>
+<pre class="terminal mt-3" aria-label="localhost-only override"><span class="prompt">#</span> docker-compose.override.yml
+services:
+  frontend:
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-80}:80"
+      - "127.0.0.1:${HTTPS_PORT:-443}:443"</pre>
+      <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">For remote access, put Sanctuary behind a reverse proxy (nginx / Caddy / Traefik) with a proper certificate, or reach it over a VPN.</p>
+    </section>
+
+    <!-- Operator responsibilities -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">What you're responsible for</h2>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">Self-hosting moves real work onto you. The short list:</p>
+      <ul class="mt-4 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Back up your hardware wallet seed.</strong> Sanctuary cannot recover funds.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Change the default password</strong> (<code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">admin</code> / <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">sanctuary</code>) on first login. The UI forces this.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Keep Docker and the host OS updated.</strong> Sanctuary is only as secure as what it runs on.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Use strong passwords and enable 2FA.</strong></li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Restrict network exposure</strong> unless you have a reason not to.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Save <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_KEY</code> / <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_SALT</code></strong> if you might restore onto a different machine later.</li>
+        <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> <strong>Verify every transaction on the device screen</strong> — every single time.</li>
+      </ul>
+    </section>
+
+    <!-- Reporting -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Reporting security issues</h2>
+      <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200">Found a vulnerability? Please don't open a public issue. Use GitHub's <a href="https://github.com/nekoguntai/sanctuary/security/advisories" class="text-primary-700 dark:text-primary-700 hover:underline">private security advisories</a> to report it privately to the maintainers.</p>
+    </section>
+  </main>
+
+  <footer class="border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-sanctuary-500 dark:text-sanctuary-400">
+      <div class="flex items-center gap-2"><img src="assets/logo.svg" alt="" class="w-5 h-5" /><span class="font-mono">Sanctuary · MIT licensed</span></div>
+      <div class="flex gap-4"><a href="disclaimer.html" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Disclaimer</a><a href="https://github.com/nekoguntai/sanctuary" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">GitHub ↗</a></div>
+    </div>
+  </footer>
+  <script src="js/site.js" defer></script>
+</body>
+</html>
