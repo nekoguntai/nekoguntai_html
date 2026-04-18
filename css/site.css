@@ -1,0 +1,236 @@
+/* nekoguntai.dev apex landing — custom styles layered on top of Tailwind CDN */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  font-family: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.no-fouc body { visibility: hidden; }
+
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--bg-raised);
+  color: var(--ink-primary);
+  border: 1px solid var(--border-soft);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Hero background: stacked radial gradients for soft glow */
+.hero-glow {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(183, 162, 255, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(244, 174, 185, 0.12), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 80% 90%, rgba(156, 207, 176, 0.10), transparent 70%);
+}
+
+/* Blurred blobs sit inside the hero for extra depth */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Twinkle dots behind the wordmark */
+.twinkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--ink-primary);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: twinkle 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.twinkle.sm { width: 2px; height: 2px; }
+.twinkle.lg { width: 4px; height: 4px; }
+.twinkle:nth-child(1) { animation-delay: 0s; }
+.twinkle:nth-child(2) { animation-delay: 0.8s; animation-duration: 6s; }
+.twinkle:nth-child(3) { animation-delay: 1.6s; animation-duration: 4.5s; }
+.twinkle:nth-child(4) { animation-delay: 2.4s; animation-duration: 7s; }
+.twinkle:nth-child(5) { animation-delay: 3.2s; animation-duration: 5.5s; }
+.twinkle:nth-child(6) { animation-delay: 4s;   animation-duration: 6.5s; }
+.twinkle:nth-child(7) { animation-delay: 1.2s; animation-duration: 5s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.85); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+/* Gentle float for the header logo mark */
+.float-slow { animation: floatSlow 6s ease-in-out infinite; }
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Fade-in-up on load, staggered */
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up   { animation: fadeInUp 0.6s ease-out both; }
+.animate-fade-in-up-1 { animation: fadeInUp 0.6s ease-out 0.08s both; }
+.animate-fade-in-up-2 { animation: fadeInUp 0.6s ease-out 0.16s both; }
+.animate-fade-in-up-3 { animation: fadeInUp 0.6s ease-out 0.24s both; }
+.animate-fade-in-up-4 { animation: fadeInUp 0.6s ease-out 0.32s both; }
+
+/* Gradient text fill for the wordmark */
+.wordmark-fill {
+  background-image: linear-gradient(135deg, var(--accent-sakura), var(--accent-lilac) 55%, var(--accent-cream));
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+/* Project cards */
+.project-card {
+  position: relative;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease-out, border-color 0.2s ease-out, background 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-lilac);
+  background: var(--bg-raised-hi);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.project-card.placeholder {
+  border-style: dashed;
+  border-color: var(--border-soft);
+  background: transparent;
+}
+.project-card.placeholder:hover {
+  transform: none;
+  border-color: var(--ink-dim);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Pill badges */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.6875rem;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  opacity: 0.9;
+}
+
+/* Paw glyph — tiny SVG-shaped accent for footer & placeholder */
+.paw {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  vertical-align: -0.1em;
+  color: currentColor;
+}
+
+/* Section divider: two fading rules meet three lilac diamonds */
+.section-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 88px;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  color: var(--accent-lilac);
+}
+.section-rule::before,
+.section-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  min-width: 1.5rem;
+}
+.section-rule::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(244, 244, 245, 0.08) 55%, rgba(183, 162, 255, 0.55) 100%);
+}
+.section-rule::after {
+  background: linear-gradient(90deg, rgba(183, 162, 255, 0.55) 0%, rgba(244, 244, 245, 0.08) 45%, transparent 100%);
+}
+.section-rule .diamond {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: currentColor;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.section-rule .diamond.sm {
+  width: 5px;
+  height: 5px;
+  opacity: 0.55;
+}
+.section-rule .label {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .section-rule { height: 64px; gap: 0.75rem; }
+  .section-rule .label { font-size: 0.625rem; letter-spacing: 0.2em; }
+}
+
+/* Fixed grain overlay — kills gradient banding, adds tactility */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Reduced-motion kill switch — CSS guard + JS-added class */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .twinkle,
+  .float-slow,
+  .animate-fade-in-up,
+  .animate-fade-in-up-1,
+  .animate-fade-in-up-2,
+  .animate-fade-in-up-3,
+  .animate-fade-in-up-4 { animation: none !important; }
+}
+.no-motion .twinkle,
+.no-motion .float-slow,
+.no-motion .animate-fade-in-up,
+.no-motion .animate-fade-in-up-1,
+.no-motion .animate-fade-in-up-2,
+.no-motion .animate-fade-in-up-3,
+.no-motion .animate-fade-in-up-4 { animation: none !important; }

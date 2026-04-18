@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="nekoguntai">
+  <rect width="32" height="32" rx="7" fill="#0b0a12"/>
+  <path d="M8 13 L11 6 L14 12 Z" fill="#b7a2ff"/>
+  <path d="M24 13 L21 6 L18 12 Z" fill="#b7a2ff"/>
+  <circle cx="16" cy="19" r="7" fill="#b7a2ff"/>
+</svg>

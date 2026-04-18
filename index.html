@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="no-fouc">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nekoguntai — an army of cats</title>
+  <meta name="description" content="nekoguntai — a small workshop of quiet tools and curious experiments." />
+  <meta name="theme-color" content="#0b0a12" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="canonical" href="https://nekoguntai.dev/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="nekoguntai" />
+  <meta property="og:title" content="nekoguntai — an army of cats" />
+  <meta property="og:description" content="A home for quiet tools and curious experiments." />
+  <meta property="og:url" content="https://nekoguntai.dev/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="nekoguntai — an army of cats" />
+  <meta name="twitter:description" content="A home for quiet tools and curious experiments." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/site.css" />
+
+  <!-- Palette tokens + hero gradient. CSS variables let cards/sections stay utility-driven while sharing a single source of truth. -->
+  <style>
+    :root {
+      --bg-void:       #0b0a12;
+      --bg-raised:     #15131f;
+      --bg-raised-hi:  #1d1a2c;
+      --border-soft:   #2a2640;
+      --ink-primary:   #f5ecdc;
+      --ink-muted:     #a59cb8;
+      --ink-dim:       #6b6483;
+      --accent-sakura: #f4aeb9;
+      --accent-matcha: #9ccfb0;
+      --accent-lilac:  #b7a2ff;
+      --accent-cream:  #ffe9b8;
+    }
+    html, body { background: var(--bg-void); color: var(--ink-primary); }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neko: {
+              bg:       '#0b0a12',
+              raised:   '#15131f',
+              raisedHi: '#1d1a2c',
+              border:   '#2a2640',
+              ink:      '#f5ecdc',
+              inkMuted: '#a59cb8',
+              inkDim:   '#6b6483',
+              sakura:   '#f4aeb9',
+              matcha:   '#9ccfb0',
+              lilac:    '#b7a2ff',
+              cream:    '#ffe9b8',
+            },
+          },
+          fontFamily: {
+            sans:    ['General Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['General Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono:    ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-neko-bg text-neko-ink antialiased min-h-screen relative overflow-x-hidden">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="relative z-20 max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="nekoguntai home">
+      <span class="text-neko-lilac float-slow inline-flex" aria-hidden="true">
+        <img src="assets/logo.svg" alt="" width="24" height="24" class="block" />
+      </span>
+      <span class="font-display font-medium tracking-tight text-neko-ink text-lg">nekoguntai</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="https://github.com/nekoguntai"
+         rel="noopener"
+         class="font-mono text-xs uppercase tracking-[0.2em] text-neko-inkMuted hover:text-neko-lilac transition-colors">
+        GitHub
+      </a>
+    </nav>
+  </header>
+
+  <main id="main" class="relative">
+
+    <!-- Hero -->
+    <section aria-labelledby="hero-title" class="hero-glow relative overflow-hidden">
+      <!-- Gradient blobs -->
+      <div class="blob" aria-hidden="true" style="top:-6rem; left:-4rem; width:22rem; height:22rem; background:#b7a2ff;"></div>
+      <div class="blob" aria-hidden="true" style="bottom:-8rem; right:-4rem; width:24rem; height:24rem; background:#f4aeb9;"></div>
+      <div class="blob" aria-hidden="true" style="bottom:-10rem; left:40%; width:20rem; height:20rem; background:#9ccfb0; opacity:0.22;"></div>
+
+      <div class="relative max-w-5xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-40 text-center">
+        <!-- Twinkle layer -->
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <span class="twinkle"    style="top:18%; left:12%;"></span>
+          <span class="twinkle sm" style="top:28%; left:82%;"></span>
+          <span class="twinkle lg" style="top:46%; left:6%;"></span>
+          <span class="twinkle"    style="top:62%; left:88%;"></span>
+          <span class="twinkle sm" style="top:14%; left:58%;"></span>
+          <span class="twinkle"    style="top:72%; left:30%;"></span>
+          <span class="twinkle sm" style="top:38%; left:46%;"></span>
+        </div>
+
+        <p class="animate-fade-in-up font-mono text-[0.7rem] md:text-xs tracking-[0.32em] uppercase text-neko-inkMuted mb-6">
+          An army of cats
+        </p>
+
+        <h1 id="hero-title"
+            class="animate-fade-in-up-1 relative inline-block font-display font-bold tracking-tight text-5xl sm:text-6xl md:text-7xl">
+          <!-- Ear-notches: SVG overlay above the first & last letters. Decorative. -->
+          <svg aria-hidden="true" class="absolute -top-3 md:-top-4 left-[3%] w-4 h-4 md:w-5 md:h-5 text-neko-lilac" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 18 L10 2 L18 18 Z" />
+          </svg>
+          <svg aria-hidden="true" class="absolute -top-3 md:-top-4 right-[3%] w-4 h-4 md:w-5 md:h-5 text-neko-lilac" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 18 L10 2 L18 18 Z" />
+          </svg>
+          <span class="wordmark-fill">nekoguntai</span>
+        </h1>
+
+        <p class="animate-fade-in-up-2 mt-6 text-base md:text-lg text-neko-inkMuted max-w-xl mx-auto">
+          A home for quiet tools and curious experiments.
+        </p>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-rule" role="separator" aria-label="Projects">
+      <span class="diamond sm" aria-hidden="true"></span>
+      <span class="label">Projects</span>
+      <span class="diamond" aria-hidden="true"></span>
+      <span class="diamond sm" aria-hidden="true"></span>
+    </div>
+
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-title" class="relative max-w-6xl mx-auto px-6 pb-20">
+      <h2 id="projects-title" class="sr-only">Projects</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- PROJECT CARD PATTERN
+             Duplicate this <article> for each new project. Edit:
+               - href (link target)
+               - accent utility on the status pill + "Visit →" link
+                 (text-neko-sakura | text-neko-matcha | text-neko-lilac | text-neko-cream
+                  — rotate so adjacent cards differ)
+               - title (h3), tagline, status badge text
+             When 3+ real projects exist, delete the "Coming soon" <article>. -->
+        <article class="project-card animate-fade-in-up-1">
+          <a href="/sanctuary/" class="block h-full no-underline">
+            <header class="flex items-center justify-between gap-3 mb-4">
+              <span class="pill text-neko-matcha">Live</span>
+              <span class="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-neko-inkDim">01</span>
+            </header>
+            <h3 class="font-display font-semibold text-2xl text-neko-ink mb-2 tracking-tight">Sanctuary</h3>
+            <p class="text-neko-inkMuted text-sm leading-relaxed mb-6">
+              A self-hosted, hardware-wallet-first Bitcoin wallet coordinator. Your keys, your server.
+            </p>
+            <footer class="flex items-center justify-between">
+              <span class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim">
+                nekoguntai.dev/sanctuary
+              </span>
+              <span class="font-medium text-sm text-neko-matcha">Visit&nbsp;→</span>
+            </footer>
+          </a>
+        </article>
+
+        <!-- Placeholder: remove once 3+ real projects exist -->
+        <article class="project-card placeholder animate-fade-in-up-2">
+          <header class="flex items-center justify-between gap-3 mb-4">
+            <span class="pill text-neko-inkDim">Coming soon</span>
+            <span class="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-neko-inkDim">02</span>
+          </header>
+          <h3 class="font-display font-semibold text-2xl text-neko-inkMuted mb-2 tracking-tight flex items-center gap-2">
+            <svg class="paw text-neko-sakura" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+              <ellipse cx="4"  cy="5"  rx="1.4" ry="1.9"/>
+              <ellipse cx="7"  cy="3.2" rx="1.3" ry="1.8"/>
+              <ellipse cx="10" cy="3.2" rx="1.3" ry="1.8"/>
+              <ellipse cx="13" cy="5"  rx="1.4" ry="1.9"/>
+              <path d="M3.5 11 C3.5 8.5 5.5 7 8 7 C10.5 7 12.5 8.5 12.5 11 C12.5 13 10.8 14 8 14 C5.2 14 3.5 13 3.5 11 Z"/>
+            </svg>
+            Something small
+          </h3>
+          <p class="text-neko-inkDim text-sm leading-relaxed mb-6">
+            The next experiment is cooking. New project slots land here as they ship.
+          </p>
+          <footer class="flex items-center justify-between">
+            <span class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim">TBA</span>
+            <span class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim">···</span>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- About strip -->
+    <section aria-labelledby="about-title" class="relative max-w-3xl mx-auto px-6 pb-24 text-center">
+      <h2 id="about-title" class="sr-only">About</h2>
+      <p class="text-sm md:text-base text-neko-inkMuted leading-relaxed">
+        <span class="text-neko-ink">nekoguntai</span>
+        <span class="font-mono text-xs text-neko-inkDim">/ 猫軍隊 /</span>
+        means <em class="not-italic text-neko-ink">army of cats</em> in Japanese — a workshop for small, careful software, made without fuss.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="relative border-t border-neko-border">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim flex items-center gap-2">
+        <span>© 2026 nekoguntai</span>
+        <svg class="paw text-neko-lilac" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+          <ellipse cx="4"  cy="5"  rx="1.4" ry="1.9"/>
+          <ellipse cx="7"  cy="3.2" rx="1.3" ry="1.8"/>
+          <ellipse cx="10" cy="3.2" rx="1.3" ry="1.8"/>
+          <ellipse cx="13" cy="5"  rx="1.4" ry="1.9"/>
+          <path d="M3.5 11 C3.5 8.5 5.5 7 8 7 C10.5 7 12.5 8.5 12.5 11 C12.5 13 10.8 14 8 14 C5.2 14 3.5 13 3.5 11 Z"/>
+        </svg>
+        <a href="https://github.com/nekoguntai" rel="noopener" class="hover:text-neko-lilac transition-colors">github.com/nekoguntai</a>
+      </p>
+      <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-neko-inkDim">
+        <a href="/sanctuary/" class="hover:text-neko-lilac transition-colors">/sanctuary</a>
+      </p>
+    </div>
+  </footer>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script src="js/site.js"></script>
+</body>
+</html>
