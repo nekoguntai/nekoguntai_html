@@ -175,13 +175,14 @@
         </div>
       </details>
 
-      <details class="group rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 overflow-hidden">
+      <details id="support-bundle" class="group rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 overflow-hidden">
         <summary class="flex items-center gap-3 cursor-pointer px-5 py-4 font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">
           <svg class="chev w-4 h-4 text-primary-600 dark:text-primary-700 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
           <span>How do I report a bug — or a vulnerability?</span>
         </summary>
         <div class="px-5 pb-5 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem] leading-relaxed">
           <p><strong>Regular bugs:</strong> <a href="https://github.com/nekoguntai/sanctuary/issues" class="text-primary-700 dark:text-primary-700 hover:underline">open a GitHub issue</a>. Include OS, browser, Sanctuary version (<code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">git describe --tags --always</code> in the install dir), and what you expected vs. what happened.</p>
+          <p class="mt-2"><strong>Diagnostic bundles:</strong> for harder-to-reproduce issues, <em>Administration → System Settings → Support Package</em> generates a diagnostic archive that downloads directly to your machine. Nothing is ever transmitted automatically or to Sanctuary — the bundle only leaves your computer if you attach it to an issue yourself. It contains service health, sync status, queue/cache metrics, error logs, server version, and your config with secrets redacted (database / Redis URLs, encryption keys, passwords). Wallet entries are anonymised — no xpubs, no addresses, no labels, just type / network / counts / last-sync status. User IDs and wallet IDs are replaced with deterministic aliases (e.g. <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">wallet-a3f2c1d8</code>). Inspect the JSON before sharing; treat it like any other log export.</p>
           <p class="mt-2"><strong>Security vulnerabilities:</strong> please <em>don't</em> file a public issue. Use GitHub's <a href="https://github.com/nekoguntai/sanctuary/security/advisories" class="text-primary-700 dark:text-primary-700 hover:underline">private security advisories</a> to report privately.</p>
         </div>
       </details>
@@ -201,7 +202,7 @@
   <footer class="border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-950">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-sanctuary-500 dark:text-sanctuary-400">
       <div class="flex items-center gap-2"><img src="assets/logo.svg" alt="" class="w-5 h-5" /><span class="font-mono">Sanctuary · MIT licensed</span></div>
-      <div class="flex gap-4"><a href="/" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">↑ nekoguntai</a><a href="disclaimer.html" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Disclaimer</a><a href="https://github.com/nekoguntai/sanctuary" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">GitHub ↗</a></div>
+      <div class="flex gap-4"><a href="/" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">↑ nekoguntai</a><a href="disclaimer.html" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">Disclaimer</a><a href="faq.html#support-bundle" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">What we collect</a><a href="https://github.com/nekoguntai/sanctuary" class="hover:text-sanctuary-900 dark:hover:text-sanctuary-50">GitHub ↗</a></div>
     </div>
   </footer>
   <script src="js/site.js" defer></script>
