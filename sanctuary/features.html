@@ -246,8 +246,8 @@
             <tbody class="bg-white dark:bg-sanctuary-950 divide-y divide-sanctuary-200 dark:divide-sanctuary-800">
               <tr><td class="px-4 py-3 font-medium">Ledger Nano S / S+ / X / Stax / Flex</td><td class="px-4 py-3">WebUSB</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes</td></tr>
               <tr><td class="px-4 py-3 font-medium">Trezor Model One / T / Safe 3 / 5 / 7</td><td class="px-4 py-3">Trezor Connect</td><td class="px-4 py-3 text-sanctuary-500">Either</td></tr>
-              <tr><td class="px-4 py-3 font-medium">BitBox02</td><td class="px-4 py-3">WebHID</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes</td></tr>
-              <tr><td class="px-4 py-3 font-medium">Blockstream Jade</td><td class="px-4 py-3">WebSerial (or QR)</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for USB</td></tr>
+              <tr><td class="px-4 py-3 font-medium">BitBox02 <span class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-[0.6rem] font-semibold uppercase tracking-wider bg-warning-50 dark:bg-warning-100 text-warning-700 dark:text-warning-700 align-middle">Untested</span></td><td class="px-4 py-3">WebHID</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes</td></tr>
+              <tr><td class="px-4 py-3 font-medium">Blockstream Jade <span class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-[0.6rem] font-semibold uppercase tracking-wider bg-warning-50 dark:bg-warning-100 text-warning-700 dark:text-warning-700 align-middle">Untested</span></td><td class="px-4 py-3">WebSerial (or QR)</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for USB</td></tr>
               <tr><td class="px-4 py-3 font-medium">ColdCard</td><td class="px-4 py-3">File (MicroSD)</td><td class="px-4 py-3 text-sanctuary-500">No</td></tr>
               <tr><td class="px-4 py-3 font-medium">ColdCard Q</td><td class="px-4 py-3">QR code or file</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for QR camera</td></tr>
               <tr><td class="px-4 py-3 font-medium">Keystone</td><td class="px-4 py-3">QR code or file</td><td class="px-4 py-3 text-warning-700 dark:text-warning-700">Yes for QR camera</td></tr>
@@ -256,6 +256,7 @@
           </table>
         </div>
         <p class="mt-4 text-sm text-sanctuary-600 dark:text-sanctuary-300">Browser support: WebUSB / WebHID / WebSerial work in Chrome, Edge, and Brave. Firefox and Safari don't implement these APIs, so they're limited to air-gapped (QR/file) flows.</p>
+        <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300"><span class="font-semibold text-warning-700 dark:text-warning-700">Untested:</span> BitBox02 and Blockstream Jade integrations are implemented against their vendor SDKs but haven't yet been verified end-to-end on physical hardware. If you have one and try it, please <a href="https://github.com/nekoguntai/sanctuary/issues" class="text-primary-700 dark:text-primary-700 hover:underline">report results on GitHub</a> — success or failure both help.</p>
       </section>
 
       <!-- CTA -->
