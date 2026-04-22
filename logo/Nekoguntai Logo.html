@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Nekoguntai — Logo Explorations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; font-family: 'Archivo', -apple-system, sans-serif; }
+  * { box-sizing: border-box; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="logos.jsx"></script>
+<script type="text/babel">
+
+const LOGOS = [
+  { id: 'triangle', name: '01 — Triangle Head',
+    desc: 'Single triangle, two ear-notches, two dot eyes. Brutally simple.',
+    Comp: LogoTriangle },
+  { id: 'chevron',  name: '02 — Chevron Rank',
+    desc: 'Stacked military chevrons — the top one has cat ears.',
+    Comp: LogoChevron },
+  { id: 'monogram', name: '03 — N Monogram',
+    desc: 'Bold "N" letterform. Whisker strokes extend horizontally. Ear triangles cap the verticals.',
+    Comp: LogoMonogram },
+  { id: 'platoon',  name: '04 — The Platoon',
+    desc: '3×3 dot grid. The center dot is a cat — one commander, eight soldiers.',
+    Comp: LogoPlatoon },
+  { id: 'star',     name: '05 — Star + Ears',
+    desc: 'Classic five-point military star. Ears poke up from behind.',
+    Comp: LogoStar },
+  { id: 'notch',    name: '06 — Notched Circle',
+    desc: 'Solid disc with two triangular bites. Pure abstract — only reads as a cat on second glance.',
+    Comp: LogoNotch },
+];
+
+function App() {
+  return (
+    <DesignCanvas>
+      {/* Header */}
+      <div style={{ padding: '0 60px 40px', maxWidth: 900 }}>
+        <div style={{
+          fontSize: 11, letterSpacing: '0.35em', textTransform: 'uppercase',
+          color: 'rgba(60,50,40,0.55)', marginBottom: 10,
+        }}>Logo Exploration · v1</div>
+        <div style={{
+          fontSize: 52, fontWeight: 900, letterSpacing: -1.5,
+          color: 'rgba(20,15,10,0.9)', lineHeight: 1,
+        }}>NEKOGUNTAI</div>
+        <div style={{
+          fontSize: 18, color: 'rgba(60,50,40,0.7)',
+          marginTop: 12, maxWidth: 640, lineHeight: 1.5,
+        }}>
+          Six directions for the "army of cats" mark. Each tested as an icon,
+          inverted, with wordmark, and at small size. All marks are single-color,
+          built from primitives — no gradients, no hand-drawn fur.
+        </div>
+      </div>
+
+      {LOGOS.map((L) => (
+        <DCSection key={L.id} title={L.name} subtitle={L.desc}>
+          <DCArtboard label="Icon — light" width={280} height={280}>
+            <LogoTile Logo={L.Comp} bg="#f7f5f0" fg="#141210" />
+          </DCArtboard>
+
+          <DCArtboard label="Icon — dark" width={280} height={280}>
+            <LogoTile Logo={L.Comp} bg="#141210" fg="#f7f5f0" />
+          </DCArtboard>
+
+          <DCArtboard label="Icon — accent" width={280} height={280}>
+            <LogoTile Logo={L.Comp} bg="#c9331f" fg="#f7f5f0" />
+          </DCArtboard>
+
+          <DCArtboard label="Lockup — stacked" width={420} height={280}>
+            <LogoWithWordmark Logo={L.Comp} bg="#f7f5f0" fg="#141210" layout="stack" />
+          </DCArtboard>
+
+          <DCArtboard label="Lockup — horizontal" width={420} height={160}>
+            <LogoWithWordmark Logo={L.Comp} bg="#f7f5f0" fg="#141210" w={420} h={160} layout="row" />
+          </DCArtboard>
+
+          <DCArtboard label="Favicon · 48 / 32 / 16" width={280} height={280}>
+            <div style={{
+              width: '100%', height: '100%', background: '#f7f5f0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              gap: 24,
+            }}>
+              <L.Comp size={48} color="#141210" />
+              <L.Comp size={32} color="#141210" />
+              <L.Comp size={16} color="#141210" />
+            </div>
+          </DCArtboard>
+        </DCSection>
+      ))}
+
+      <DCPostIt top={120} right={80} rotate={3} width={200}>
+        Pinch to zoom. Drag the canvas background to pan around.
+      </DCPostIt>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
