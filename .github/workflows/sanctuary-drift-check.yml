@@ -1,0 +1,49 @@
+name: sanctuary-drift-check
+
+# Weekly check that compares this marketing site to the actual state
+# of nekoguntai-castle/sanctuary. When drift is detected, opens a
+# new "Sanctuary site drift detected" issue or comments on the
+# existing open one with the latest report.
+#
+# Add new checks by editing scripts/check-sanctuary-drift.py.
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # Mondays 14:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run drift check
+        run: python3 scripts/check-sanctuary-drift.py
+
+      - name: Open or update drift issue
+        if: ${{ hashFiles('drift-report.md') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ ! -s drift-report.md ]; then
+            echo "drift-report.md is empty; nothing to report."
+            exit 0
+          fi
+          TITLE="Sanctuary site drift detected"
+          NUMBER=$(gh issue list \
+            --state open \
+            --json number,title \
+            --jq ".[] | select(.title == \"$TITLE\") | .number" \
+            | head -1)
+          if [ -n "$NUMBER" ]; then
+            gh issue comment "$NUMBER" --body-file drift-report.md
+            echo "added comment to existing issue #$NUMBER"
+          else
+            gh issue create --title "$TITLE" --body-file drift-report.md
+            echo "opened a new drift issue"
+          fi
