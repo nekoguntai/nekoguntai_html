@@ -134,12 +134,71 @@
     });
   }
 
+  // --- Built-so-far timeline --------------------------------------------
+  function bindTimeline() {
+    const root = document.querySelector('[data-timeline]');
+    if (!root) return;
+    const points = Array.from(root.querySelectorAll('[data-timeline-point]'));
+    const details = Array.from(root.querySelectorAll('[data-timeline-detail]'));
+    if (points.length === 0) return;
+
+    function select(id, { focus = false } = {}) {
+      points.forEach((p) => {
+        const sel = p.getAttribute('data-timeline-point') === id;
+        p.setAttribute('aria-selected', sel ? 'true' : 'false');
+        p.tabIndex = sel ? 0 : -1;
+        if (sel && focus) p.focus();
+      });
+      details.forEach((d) => {
+        if (d.getAttribute('data-timeline-detail') === id) d.setAttribute('data-active', '');
+        else d.removeAttribute('data-active');
+      });
+    }
+
+    points.forEach((p) => {
+      p.addEventListener('click', () => select(p.getAttribute('data-timeline-point')));
+      p.addEventListener('keydown', (e) => {
+        const i = points.indexOf(p);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = points[(i + 1) % points.length];
+          select(next.getAttribute('data-timeline-point'), { focus: true });
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = points[(i - 1 + points.length) % points.length];
+          select(prev.getAttribute('data-timeline-point'), { focus: true });
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          select(points[0].getAttribute('data-timeline-point'), { focus: true });
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          select(points[points.length - 1].getAttribute('data-timeline-point'), { focus: true });
+        }
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            root.classList.add('is-revealed');
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-revealed');
+    }
+  }
+
   // --- Init --------------------------------------------------------------
   function init() {
     bindThemeToggle();
     bindMobileNav();
     bindLightbox();
     bindInstallTabs();
+    bindTimeline();
     document.documentElement.classList.remove('no-fouc');
   }
 

@@ -85,6 +85,7 @@
         <a href="#notifications" class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">notifications</a>
         <a href="#backup"        class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">backup</a>
         <a href="#hardware"      class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">hardware support</a>
+        <a href="#timeline"      class="px-3 py-1.5 rounded-md border border-sanctuary-200 dark:border-sanctuary-800 text-sanctuary-700 dark:text-sanctuary-200 hover:border-sanctuary-400 dark:hover:border-sanctuary-600">built so far</a>
       </nav>
     </section>
 
@@ -259,10 +260,233 @@
         <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300"><span class="font-semibold text-warning-700 dark:text-warning-700">Untested:</span> BitBox02 and Blockstream Jade integrations are implemented against their vendor SDKs but haven't yet been verified end-to-end on physical hardware. If you have one and try it, please <a href="https://github.com/nekoguntai-castle/sanctuary/issues" class="text-primary-700 dark:text-primary-700 hover:underline">report results on GitHub</a> — success or failure both help.</p>
       </section>
 
+      <!-- ====================== Built so far — interactive timeline ====================== -->
+      <section id="timeline" class="scroll-mt-24">
+        <h2 class="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Built so far</h2>
+        <p class="mt-3 text-sanctuary-700 dark:text-sanctuary-200 leading-relaxed">46 tagged releases in 4.5 months. Day-one watch-only, hardware-signed throughout. Larger dots are major milestones; hover or focus the smaller dots to peek at minor releases. Tap any point to expand its detail below.</p>
+
+        <div class="timeline mt-8" data-timeline>
+          <div class="timeline-track" role="tablist" aria-label="Sanctuary release milestones">
+            <div class="timeline-line" aria-hidden="true">
+              <div class="timeline-line-fill" data-timeline-fill></div>
+            </div>
+
+            <button type="button" role="tab" data-timeline-point="m1"  data-major="true"  aria-selected="false" tabindex="-1" aria-controls="tl-m1"  class="timeline-point" style="--pos: 0%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Dec 11</span><span class="timeline-label-title">Day one</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m2"  data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m2"  class="timeline-point" style="--pos: 7%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Dec 13</span><span class="timeline-label-title">v0.2 · Multi-user + 2FA</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m3"  data-major="true"  aria-selected="false" tabindex="-1" aria-controls="tl-m3"  class="timeline-point" style="--pos: 14%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Dec 17</span><span class="timeline-label-title">First fleshing</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m4"  data-major="true"  aria-selected="false" tabindex="-1" aria-controls="tl-m4"  class="timeline-point" style="--pos: 22%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Dec 20</span><span class="timeline-label-title">Gateway + RBF</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m5"  data-major="true"  aria-selected="false" tabindex="-1" aria-controls="tl-m5"  class="timeline-point" style="--pos: 31%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Late Dec</span><span class="timeline-label-title">Privacy + AI</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m6"  data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m6"  class="timeline-point" style="--pos: 39%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Jan 5</span><span class="timeline-label-title">v0.7.10 · Multi-account devices</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m7"  data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m7"  class="timeline-point" style="--pos: 49%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Feb</span><span class="timeline-label-title">v0.7.28 · Mobile gateway TLS</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m8"  data-major="true"  aria-selected="false" tabindex="-1" aria-controls="tl-m8"  class="timeline-point" style="--pos: 59%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Mar</span><span class="timeline-label-title">Scale-out</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m9"  data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m9"  class="timeline-point" style="--pos: 68%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Mid Mar</span><span class="timeline-label-title">v0.8.10 · Treasury Autopilot</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m10" data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m10" class="timeline-point" style="--pos: 78%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Apr</span><span class="timeline-label-title">v0.8.18 · Vault Policies</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m11" data-major="false" aria-selected="false" tabindex="-1" aria-controls="tl-m11" class="timeline-point" style="--pos: 88%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Mid Apr</span><span class="timeline-label-title">v0.8.35 · Agent wallets + MCP</span></span>
+            </button>
+            <button type="button" role="tab" data-timeline-point="m12" data-major="true"  aria-selected="true"  tabindex="0"  aria-controls="tl-m12" class="timeline-point" style="--pos: 100%;">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-label"><span class="timeline-label-date">Late Apr</span><span class="timeline-label-title">Treasury platform</span></span>
+            </button>
+          </div>
+
+          <div class="timeline-details mt-6">
+            <div role="tabpanel" id="tl-m1" data-timeline-detail="m1" class="timeline-detail" aria-labelledby="tl-tab-m1">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Watch-only foundations</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.1 · 2025-12-11</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Watch-only Bitcoin wallet with Electrum and Bitcoin Core RPC support</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multi-signature wallet support with descriptor and JSON import</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Hardware wallet PSBT signing via WebUSB (Ledger, Trezor)</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Wallet sharing with role assignment for users and groups</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> HTTPS-only setup so WebUSB / WebHID flows work in the browser</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m2" data-timeline-detail="m2" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Multi-user, 2FA, notifications</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.2 – v0.3 · 2025-12-13</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Role-based wallet permissions with admin registration control</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Two-factor authentication and security hardening</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Telegram notifications for wallet transactions</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Push notification backend foundations for iOS and Android</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Real-time sync log tab in wallet detail view</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m3" data-timeline-detail="m3" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Drafts, audit log, Umbrel</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.4 · 2025-12-17</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Trezor hardware wallet support alongside Ledger</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Draft transactions, transaction export (CSV/JSON), table layout</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Comprehensive audit logging system with correlation IDs</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Backup and restore for admins; <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">ENCRYPTION_KEY</code> support in installer</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Umbrel Community App Store package and one-liner install</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> QR camera scanning for device import; Coldcard JSON import</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m4" data-timeline-detail="m4" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Gateway, RBF, multi-server pool</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.5 – v0.6 · 2025-12-20</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> API Gateway introduced — architectural foundation for native mobile apps</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> RBF and CPFP actions on transactions with proper draft/UTXO locking</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Electrum connection pool with multi-server failover and health history</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multi-output sends, draft transactions with field locking and expiration</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Configurable mempool fee estimator with sub-sat/vB precision</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Telegram + push notifications for transactions and drafts</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m5" data-timeline-detail="m5" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Tor, testnet, QR signing, AI Assistant</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.7.0 – v0.7.9 · 2025-12-21</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Tor proxy support with .onion verification and decoy-output privacy mode</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Full testnet and signet support with per-network connection modes</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> QR-code signing for air-gapped wallets (Passport, Coldcard, Keystone)</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> AI Assistant: transaction labeling, natural-language queries, isolated container</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> BitBox02 and Blockstream Jade hardware wallet adapters</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Coin Control + Payjoin (BIP78) with privacy scoring</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m6" data-timeline-detail="m6" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Multi-account devices &amp; multisig polish</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.7.10 – v0.7.27 · 2026-01-05</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multi-account device support with SD-card and QR import</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Device-merge flow for duplicate fingerprint consolidation</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multisig signing fixes across Trezor, Coldcard, BitBox02, Jade, Passport</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> 2FA encryption-at-rest with downloadable encryption-key backup</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Wallet repair flow; extensible registries for import/export formats</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m7" data-timeline-detail="m7" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Mobile gateway TLS &amp; email verification</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.7.28 – v0.8.0 · 2026-02</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Email verification for user registration</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Native TLS in the API gateway with 4096-bit RSA, CA support, gateway-level audit</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> iOS backend enhancements: mobile permissions model and push notifications</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Backend tests migrated to Vitest; new monitoring page with Grafana access</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Multi-implementation address verification + Stryker mutation testing</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m8" data-timeline-detail="m8" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Worker architecture &amp; scale-out</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.8.0 – v0.8.9 · 2026-03-01</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Dedicated background worker handles sync, subscriptions, and blockchain ops</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Block-height tracking and pagination for hundreds-of-wallets deployments</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Wallet sync moved off navigation, onto worker-driven event cadence</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> 30+ "god files" split into focused domain modules across server and frontend</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m9" data-timeline-detail="m9" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Treasury Autopilot &amp; feature flags</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.8.10 – v0.8.17 · 2026-03-15</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Treasury Autopilot Phase 1: automated fee monitoring and consolidation alerts</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Feature-flag admin UI with runtime toggling, audit trail, gated rollouts</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> 20+ premium UI enhancements: rich tooltips, animated tabs, sparklines, fee flash</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Official BIP test-vector verification (BIP-143, BIP-341, BIP-380)</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m10" data-timeline-detail="m10" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Vault Policies &amp; Treasury Intelligence</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.8.18 – v0.8.34 · 2026-04-01</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Vault Policies &amp; Spending Governance: rules engine with approval workflows</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Treasury Intelligence ("On-Chain CFO"): AI-powered wallet analysis</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Support Bundle: one-click diagnostic export across the whole stack</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Modernized typography, tighter UI radii, segmented network tabs</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Major dependency upgrades: TypeScript 6, Prisma 7, Express 5, Vite 7</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m11" data-timeline-detail="m11" class="timeline-detail">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Agent wallets, MCP, CI hardening</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.8.35 – v0.8.44 · 2026-04-15</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Agent wallets: dedicated operational wallets with funding flows, owner overrides, and alerts</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Read-only MCP server so external AI tools can query Sanctuary safely</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Hardened security: rate limits, CORS guards, cookie auth (HttpOnly + CSRF), Node 24 LTS</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Reorganised documentation under the Diátaxis framework</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Refactored 40+ UI and backend hotspots into smaller, testable modules</li>
+              </ul>
+            </div>
+            <div role="tabpanel" id="tl-m12" data-timeline-detail="m12" class="timeline-detail" data-active>
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Sanctuary Console &amp; local AI</h3>
+                <span class="font-mono text-xs uppercase tracking-wider text-sanctuary-500 dark:text-sanctuary-400">v0.8.45+ · 2026-04-25</span>
+              </div>
+              <ul class="mt-3 space-y-2 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem]">
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Sanctuary Console: in-app AI assistant drawer with admin controls and MCP tooling</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Typed AI provider profiles with first-class support for local providers</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Transaction-aware "typed intents" so the Console plans without surprising users</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Living architecture documentation with diagram drift detection</li>
+                <li class="flex gap-2"><span class="text-primary-600 dark:text-primary-700 font-mono">›</span> Requester-only agent wallet setup flow and DB-backed price-provider settings</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- CTA -->
       <section class="mt-10 p-6 sm:p-8 rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-900/40">
         <h2 class="font-display font-semibold text-xl text-sanctuary-900 dark:text-sanctuary-50">Ready to try it?</h2>
-        <p class="mt-2 text-sanctuary-700 dark:text-sanctuary-200">Install takes a couple of minutes on any Docker-capable machine. Remember — this software is experimental and has not been audited.</p>
+        <p class="mt-2 text-sanctuary-700 dark:text-sanctuary-200">Install takes a couple of minutes on any Docker-capable machine. Sanctuary is still experimental and in active development — start small while you get comfortable.</p>
         <div class="mt-4 flex flex-wrap gap-3">
           <a href="install.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary-800 text-primary-50 hover:bg-primary-700 font-medium text-sm transition-colors">Install guide <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a href="security.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-sanctuary-200 dark:border-sanctuary-700 hover:border-sanctuary-300 dark:hover:border-sanctuary-600 font-medium text-sm transition-colors">Security model</a>

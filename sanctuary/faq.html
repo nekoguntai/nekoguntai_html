@@ -81,7 +81,7 @@
           <span>Has Sanctuary been audited?</span>
         </summary>
         <div class="px-5 pb-5 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem] leading-relaxed">
-          <p>No. Sanctuary has not undergone a formal security audit. It is in an early experimental stage and under active development. Features may change without notice. Do not use it with significant amounts of Bitcoin. Always verify every transaction detail on your hardware wallet before signing.</p>
+          <p>Not by an independent third party yet. We're pre-1.0 — the codebase is open source and auditable by anyone, with ~99% backend test coverage on security-sensitive paths. The watch-only guarantee is verifiable directly: a grep across the server for <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">privateKey</code>, <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">seed</code>, or <code class="font-mono text-xs bg-sanctuary-100 dark:bg-sanctuary-900 px-1.5 py-0.5 rounded">mnemonic</code> returns zero matches. See the <a href="security.html" class="text-primary-700 dark:text-primary-700 hover:underline">security page</a> for the architectural details, and start small while you get comfortable.</p>
         </div>
       </details>
 

@@ -70,8 +70,16 @@
       <p class="text-sm font-mono uppercase tracking-wider text-primary-600 dark:text-primary-700">Security</p>
       <h1 class="mt-2 font-display font-semibold text-4xl sm:text-5xl tracking-tight text-sanctuary-900 dark:text-sanctuary-50">Don't trust. Verify.</h1>
       <p class="mt-4 text-lg text-sanctuary-600 dark:text-sanctuary-300">Sanctuary is a <strong>watch-only coordinator</strong>. It sees what your addresses see on-chain — and builds transactions for your hardware wallet to sign. That's all. The architecture below exists so you can inspect exactly what it holds, where it runs, and where trust lands.</p>
-      <div class="mt-6 p-4 rounded-lg border border-warning-200 dark:border-warning-200 bg-warning-50 dark:bg-warning-100 text-sm text-warning-800 dark:text-warning-800">
-        <strong>Status: experimental, pre-audit.</strong> The design goals below are implemented, but the code has not been independently reviewed. Do not use with significant funds. Read the <a href="disclaimer.html" class="underline">full disclaimer</a>.
+      <div class="mt-6 space-y-3">
+        <div class="p-4 rounded-lg border border-success-200 dark:border-success-200 bg-success-50 dark:bg-success-100 text-sm text-success-900 dark:text-success-900">
+          <strong>What's architecturally guaranteed.</strong> The server never holds a Bitcoin private key, seed, or mnemonic — every signing path lives on the hardware wallet. Verify it yourself: grep the source for <code class="font-mono text-xs px-1 py-0.5 rounded bg-success-100 dark:bg-success-200">privateKey</code>, <code class="font-mono text-xs px-1 py-0.5 rounded bg-success-100 dark:bg-success-200">seed</code>, or <code class="font-mono text-xs px-1 py-0.5 rounded bg-success-100 dark:bg-success-200">mnemonic</code> and you'll find zero matches in the server. AES-256-GCM at rest with scrypt-derived keys, JWT revocation, TOTP 2FA, per-route wallet RBAC, double-submit CSRF, HMAC-signed gateway calls, and an isolated AI proxy with no DB access.
+        </div>
+        <div class="p-4 rounded-lg border border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-100/60 dark:bg-sanctuary-900/40 text-sm text-sanctuary-700 dark:text-sanctuary-200">
+          <strong>Sensible defaults out of the box.</strong> Strong password policy, fail-closed Redis-backed rate limiting, Helmet CSP, HSTS, Dependabot + gitleaks + CodeQL as blocking CI gates, ~99% backend test coverage including auth and authorisation paths, and all SQL parameterised through Prisma.
+        </div>
+        <div class="p-4 rounded-lg border border-warning-200 dark:border-warning-200 bg-warning-50 dark:bg-warning-100 text-sm text-warning-800 dark:text-warning-800">
+          <strong>Honest about where we are.</strong> Sanctuary is pre-1.0 and hasn't had an independent third-party audit yet. The whole codebase is open source and auditable by anyone — the test suite catches regressions on the security-sensitive paths, and we run our own internal review pass before each release. Start small while you get comfortable, and always verify every transaction on your hardware wallet. <a href="disclaimer.html" class="underline">Full disclaimer</a>.
+        </div>
       </div>
     </section>
 
