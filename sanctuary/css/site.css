@@ -216,7 +216,7 @@ pre.terminal .prompt { color: #84a98c; user-select: none; }
 
 .timeline-track {
   position: relative;
-  height: 130px;
+  height: 170px;
   padding: 0 1rem;
 }
 
@@ -265,6 +265,14 @@ pre.terminal .prompt { color: #84a98c; user-select: none; }
   outline: 2px solid #d4b483;
   outline-offset: 2px;
   border-radius: 9999px;
+}
+
+/* Hovered/focused/active points layer above neighbours so their tooltips
+   and labels don't get hidden behind sibling dots and labels. */
+.timeline-point:hover,
+.timeline-point:focus-visible,
+.timeline-point[aria-selected="true"] {
+  z-index: 3;
 }
 
 .timeline-dot {
@@ -320,6 +328,12 @@ pre.terminal .prompt { color: #84a98c; user-select: none; }
   white-space: nowrap;
   text-align: center;
   pointer-events: none;
+}
+
+/* Major labels can opt in to render above the line via data-side="up". */
+.timeline-point[data-major="true"][data-side="up"] .timeline-label {
+  top: auto;
+  bottom: calc(50% + 0.95rem);
 }
 
 .timeline-label-date {
@@ -435,10 +449,14 @@ pre.terminal .prompt { color: #84a98c; user-select: none; }
   .dark .timeline-dot { box-shadow: 0 0 0 4px #09090b; }
 
   /* Reset every label to inline, always-visible on mobile (tooltip popovers
-     don't make sense on touch). */
+     don't make sense on touch, and above/below alternation is moot in a
+     vertical layout). */
   .timeline-label,
-  .timeline-point[data-major="false"] .timeline-label {
+  .timeline-point[data-major="false"] .timeline-label,
+  .timeline-point[data-major="true"][data-side="up"] .timeline-label {
     position: static;
+    top: auto;
+    bottom: auto;
     transform: none;
     opacity: 1;
     background: transparent;
