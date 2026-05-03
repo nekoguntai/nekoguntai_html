@@ -4,10 +4,10 @@
 # site.js; idempotent — re-running with no asset changes leaves the tree
 # clean.
 #
-# Why: GitHub Pages serves css/js with a 4h Cloudflare cache, so a
-# straight push leaves users on stale assets long after the HTML
-# refreshes. A content-hash query string forces a fresh fetch only when
-# the asset's content changes.
+# Why: static hosts and CDNs can cache css/js longer than HTML, so a
+# straight push can leave users on stale assets after the page refreshes.
+# A content-hash query string forces a fresh fetch only when the asset's
+# content changes.
 
 set -euo pipefail
 
