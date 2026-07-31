@@ -1,6 +1,6 @@
 # nekoguntai_html
 
-Source for [nekoguntai.dev](https://nekoguntai.dev/), served as a static site from the `main` branch.
+Source for [nekoguntai.dev](https://nekoguntai.dev/), served by GitHub Pages from the `main` branch.
 
 ## Layout
 
@@ -20,8 +20,10 @@ self-contained subsite; `sanctuary/` is the first.
 ## Deployment
 
 1. Push to `main`.
-2. Rebuild or publish the repo root with the configured static-site host.
-3. DNS: `nekoguntai.dev` apex and `www` should point at the active host.
+2. GitHub Pages rebuilds from the repo root (see Settings → Pages).
+3. DNS: `nekoguntai.dev` apex points at GitHub Pages IPs, and `www` CNAMEs to
+   `nekoguntai.github.io`. Full details in
+   [GitHub's custom-domain docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
 
 ## Editing the apex or a subsite
 
