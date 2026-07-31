@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ — Sanctuary</title>
-  <meta name="description" content="Frequently asked questions about Sanctuary: audits, hardware wallet support, Bitcoin nodes, Umbrel, multi-user access, backups, and more." />
+  <meta name="description" content="Frequently asked questions about Sanctuary: audits, hardware wallet support, Bitcoin nodes, multi-user access, backups, and more." />
   <meta name="theme-color" content="#0f0f10" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="canonical" href="https://nekoguntai.dev/sanctuary/faq.html" />
@@ -129,10 +129,10 @@
       <details class="group rounded-xl border border-sanctuary-200 dark:border-sanctuary-800 bg-white dark:bg-sanctuary-900 overflow-hidden">
         <summary class="flex items-center gap-3 cursor-pointer px-5 py-4 font-display font-semibold text-sanctuary-900 dark:text-sanctuary-50">
           <svg class="chev w-4 h-4 text-primary-600 dark:text-primary-700 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-          <span>Does it work on Umbrel?</span>
+          <span>What happened to Umbrel support?</span>
         </summary>
         <div class="px-5 pb-5 text-sanctuary-700 dark:text-sanctuary-200 text-[0.95rem] leading-relaxed">
-          <p>Yes, via a community app — but with limits. Umbrel serves apps over HTTP, and browsers only grant WebUSB / WebHID / WebSerial and camera access over HTTPS. So on Umbrel you <em>can</em> import descriptors, view balances, and create PSBTs for air-gapped signing (via MicroSD upload) — but you <em>can't</em> use WebUSB hardware wallets or QR camera scanning. Full functionality lives on the standard install. See <a href="install.html#umbrel" class="text-primary-700 dark:text-primary-700 hover:underline">Umbrel install</a>.</p>
+          <p>Umbrel app updates and runtime support ended on July 31, 2026. Migration-only help remains available through August 30, 2026. Existing users should create a Sanctuary backup, install the same or a newer stable version with the <a href="install.html" class="text-primary-700 dark:text-primary-700 hover:underline">standard source installer</a>, restore and verify their data, and only then remove the old deployment. See the <a href="https://github.com/nekoguntai-castle/sanctuary/blob/main/docs/how-to/migrate-from-packaged-deployments.md" class="text-primary-700 dark:text-primary-700 hover:underline">migration guide</a> for the complete secret and rollback procedure.</p>
         </div>
       </details>
 

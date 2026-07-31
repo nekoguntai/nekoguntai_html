@@ -253,7 +253,7 @@
             </div>
             <h3 class="mt-4 font-display font-semibold text-lg text-sanctuary-900 dark:text-sanctuary-50">Self-hosted, always</h3>
             <p class="mt-2 text-sm text-sanctuary-600 dark:text-sanctuary-300 leading-relaxed">
-              Run Sanctuary on your laptop, a home server, or Umbrel — wherever you already trust. No third-party accounts, no tracking, no hosted backend between you and your coins.
+              Run Sanctuary on your laptop, a home server, or a VPS you control — wherever you already trust. No third-party accounts, no tracking, no hosted backend between you and your coins.
             </p>
           </div>
           <!-- Pillar 3: Hardware native -->
@@ -443,7 +443,6 @@
           <div role="tablist" aria-label="Install methods" data-install-tabs class="flex border-b border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-50 dark:bg-sanctuary-950 px-2 overflow-x-auto">
             <button role="tab" aria-selected="true"  aria-controls="panel-script"  id="tab-script"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="0">Script</button>
             <button role="tab" aria-selected="false" aria-controls="panel-docker"  id="tab-docker"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="-1">Docker</button>
-            <button role="tab" aria-selected="false" aria-controls="panel-umbrel"  id="tab-umbrel"  class="install-tab px-4 py-3 text-sm font-medium border-b-2 border-transparent text-sanctuary-600 dark:text-sanctuary-300 hover:text-sanctuary-900 dark:hover:text-sanctuary-50 transition-colors" tabindex="-1">Umbrel</button>
           </div>
           <div class="p-5 sm:p-6">
             <div id="panel-script" role="tabpanel" aria-labelledby="tab-script" data-install-panel class="install-panel active">
@@ -454,10 +453,6 @@
               <p class="text-sm text-sanctuary-600 dark:text-sanctuary-300 mb-3">Clone and run with Docker Compose for more control over configuration.</p>
 <pre class="terminal" aria-label="docker install"><span class="prompt">$</span> git clone https://github.com/nekoguntai-castle/sanctuary &amp;&amp; cd sanctuary
 <span class="prompt">$</span> ./start.sh</pre>
-            </div>
-            <div id="panel-umbrel" role="tabpanel" aria-labelledby="tab-umbrel" data-install-panel class="install-panel">
-              <p class="text-sm text-sanctuary-600 dark:text-sanctuary-300 mb-3">Install from the Umbrel App Store if you run an Umbrel node — auto-detects your local Electrum server.</p>
-<pre class="terminal" aria-label="umbrel install"><span class="prompt">#</span> Open Umbrel → App Store → search "Sanctuary" → Install</pre>
             </div>
           </div>
           <div class="px-5 sm:px-6 py-4 border-t border-sanctuary-200 dark:border-sanctuary-800 bg-sanctuary-50 dark:bg-sanctuary-950 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
